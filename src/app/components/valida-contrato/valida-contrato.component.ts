@@ -14,10 +14,10 @@ declare var $: any;
 })
 export class ValidaContratoComponent implements OnInit {
 
-  createFormGroup(){
+  createFormGroup() {
     return new FormGroup({
-        name: new FormControl( ['', [Validators.required]]),
-        amount: new FormControl( ['', [Validators.required, Validators.min(5)]])
+      name: new FormControl(['', [Validators.required]]),
+      amount: new FormControl(['', [Validators.required, Validators.min(5)]])
     })
   }
 
@@ -44,13 +44,13 @@ export class ValidaContratoComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder
   ) {
-    this.form= this.createFormGroup();
+    this.form = this.createFormGroup();
 
     this.form.setValue({
       amount: '',
       name: ''
     })
-   }
+  }
 
   ngOnInit(): void {
 
@@ -59,7 +59,7 @@ export class ValidaContratoComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.user.email = params.email
-      
+
     })
 
     this.getUser();
@@ -85,7 +85,7 @@ export class ValidaContratoComponent implements OnInit {
 
     let id = $('#contratoId').val();
 
-    this.contratoService.getContrato(id).subscribe( res => {
+    this.contratoService.getContrato(id).subscribe(res => {
 
       this.contrato = res;
       this.infoMessage = '';
@@ -100,7 +100,7 @@ export class ValidaContratoComponent implements OnInit {
 
       }
 
-      
+
 
       if (this.contrato['msg']) {
         this.infoMessage = this.contrato['msg'];
@@ -123,13 +123,21 @@ export class ValidaContratoComponent implements OnInit {
     let s = ("0" + (fecha.getSeconds())).slice(-2)
     let ms = ("0" + (fecha.getMilliseconds())).slice(-2)
 
-    let cadena = 'REF_' + contrato + '_' + y + m + d + '-' + h + mm +s+ms;
+    let cadena = 'REF_' + contrato + '_' + y + m + d + '-' + h + mm + s + ms;
 
     return cadena;
 
   }
 
-  getUser(){
+  getUser() {
+
+    //preguntamos si hay email en el localstorage
+
+    if ((this.user.email == '') || (!this.user.email)) {
+      console.log("si hay email desde el storage");
+
+      this.user.email = localStorage.getItem('email') || '';
+    }
 
     this.userService.getUser(this.user.email).subscribe(res => {
       this.user.nombre = res.nombre
@@ -137,14 +145,14 @@ export class ValidaContratoComponent implements OnInit {
 
   }
 
-  async generateSignature (referencia:string, importe:number){
+  async generateSignature(referencia: string, importe: number) {
 
     //let key = '5tuJoT8BcTVlBbGzd-0x';  //ejemplo pdf
     let key = 'QvgGUjXOBnmRjc2CvHJ6'
     let idExpress = 1545;
     //let message = 'REF0011.001470'; 
 
-    let message = referencia+importe+idExpress;
+    let message = referencia + importe + idExpress;
     let result;
 
     console.log(this.referencia);
@@ -155,25 +163,25 @@ export class ValidaContratoComponent implements OnInit {
 
 
     const getUtf8Bytes = (str: any) =>
-    new Uint8Array(
-      [...unescape(encodeURIComponent(str))].map(c => c.charCodeAt(0))
-    );
+      new Uint8Array(
+        [...unescape(encodeURIComponent(str))].map(c => c.charCodeAt(0))
+      );
 
     const keyBytes = getUtf8Bytes(key);
     const messageBytes = getUtf8Bytes(message);
 
     const cryptoKey = await crypto.subtle.importKey(
-      'raw', keyBytes, {name: 'HMAC', hash: 'SHA-256' },
+      'raw', keyBytes, { name: 'HMAC', hash: 'SHA-256' },
       true, ['sign']
     );
 
     const sig = await crypto.subtle.sign('HMAC', cryptoKey, messageBytes);
 
-    result = [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2,'0')).join('');
+    result = [...new Uint8Array(sig)].map(b => b.toString(16).padStart(2, '0')).join('');
 
     btoa(String.fromCharCode(...new Uint8Array(sig)));
 
-  
+
     //console.log([...new Uint8Array(sig)].map(b => b.toString(16).padStart(2,'0')).join(''));
 
     this.signature = result;
@@ -185,17 +193,17 @@ export class ValidaContratoComponent implements OnInit {
 
   }
 
-  tocheckout(importe:number, contrato:number, nombre:string){
-    
-    this.restService.generateOrder(contrato, importe, nombre).subscribe((data)=>{
+  tocheckout(importe: number, contrato: number, nombre: string) {
 
-      this.router.navigate(['/checkout', {localizator: data?.localizator, amount: importe, nombre:nombre, contrato: contrato}])
+    this.restService.generateOrder(contrato, importe, nombre).subscribe((data) => {
+
+      this.router.navigate(['/checkout', { localizator: data?.localizator, amount: importe, nombre: nombre, contrato: contrato }])
     })
 
-    
+
   }
 
-  generateForm(){
+  generateForm() {
 
     var form;
     let importe, referencia, signature, urlretorno, idexpress, financiamiento, plazos, mediospago;
@@ -249,11 +257,11 @@ export class ValidaContratoComponent implements OnInit {
 
     //mediospago
     mediospago = document.createElement("input");
-    mediospago.setAttribute("name","mediospago");
+    mediospago.setAttribute("name", "mediospago");
     mediospago.setAttribute("type", "hidden");
-    mediospago.setAttribute("value","110000");
+    mediospago.setAttribute("value", "110000");
 
-    
+
     form.appendChild(importe);
     form.appendChild(referencia);
     form.appendChild(signature);
@@ -268,7 +276,7 @@ export class ValidaContratoComponent implements OnInit {
 
   }
 
-  logOut(){
+  logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
   }
