@@ -1,18 +1,26 @@
-<div style="background: linear-gradient(to top, rgb(9, 80, 138), rgb(0,45,82)); height: 90px; ">
+<div class="header-toolbar">
+
+    <div class="logo" style="display: flex; justify-content: left ; align-items: center;">
+        <div>
+            <img src="../../../assets/img/smapac-logo-300x190.png" style="height: 70px;" >
+        </div>
+        
+    </div>
+
     <div style="display: flex; justify-content: center; padding-top: 20px;">
-        <h1 style="color: white;">Sistema de Cobro en Línea SMAPAC</h1>
     </div>
 </div>
 <div class="container-fluid" style="margin-top: 10px;">
 
     <div class="mt-5">
-        Bienvenido: <span style="font-weight: bolder; font-size: 20px; color: rgb(97, 97, 97);">{{user.nombre}}</span>
+        <span class="titleInput">Bienvenido: </span>
+        <span style="font-weight: bolder; font-size: 20px; color: #3c4257;">{{user.nombre}}</span>
     </div>
 
 
-    <div class="pt-4 pb-3" style="width: 75%;">
+    <div class="pt-4 pb-3" >
         <div class="form-group mb-2">
-            <span style="font-weight: bolder; color: rgb(97, 97, 97);">Ingrese el numero de contrato: </span>
+            <span class="titleInput">Ingrese el numero de contrato: </span>
         </div>
 
         <div class="row">
@@ -23,7 +31,7 @@
                         <input class="form-control" id=contratoId type="text">
                     </div>
                     <div class="col-3" style="display: flex; justify-content: center;">
-                        <button id="btnContrato" (click)="getContrato()" class="btn btn-primary"><i
+                        <button style="font-weight: 600;" id="btnContrato" (click)="getContrato()" class="btn btn-primary"><i
                                 class="fas fa-check-circle"></i>&nbsp;&nbsp;Validar</button>
                     </div>
                 </div>
@@ -31,51 +39,57 @@
 
         </div>
 
+        
+
 
 
     </div>
 
-    <div class="pt-4 pb-3" *ngIf=(contrato?.contrato)
-        style="width: 75%; border: 1px solid rgb(199, 199, 199); border-radius: 10px;">
+    <div class="card-shadow pt-4 pb-3" *ngIf=(contrato?.contrato)>
 
         <div class="row">
-            <div class="col-7" style="margin-left: 30px; color: rgb(97, 97, 97);">
+            <div class="col-7" style="margin-left: 20px; ">
                 <div class="form-group">
                     <!--Estatus: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.estatus}}</span>-->
 
                     <div *ngIf="contrato.estatus == 'Activo'; else elseBlock">Estatus: <span
-                            style="margin-left:20px; font-weight:bold; color: rgb(134, 194, 13);">{{contrato?.estatus}}</span>
+                            style="margin-left:20px; font-weight:bold; color: #1ea672">{{contrato?.estatus}}</span>
                     </div>
                     <ng-template #elseBlock>
                         Estatus: <span
-                            style="margin-left:20px; font-weight:bold; color: rgb(194, 13, 13);">{{contrato?.estatus}}</span>
+                            class="error" style="margin-left:20px; font-weight:bold; ">{{contrato?.estatus}}</span>
                     </ng-template>
                 </div>
 
                 <div class="form-group">
-                    N. Contrato: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.contrato}}</span>
+                    <span class="titleInput">Contrato:</span>
+                    <span class="res" >{{contrato?.contrato}}</span>
                 </div>
 
                 <div class="form-group">
-                    Titular: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.nombre}}</span>
+                    <span class="titleInput">Titular:</span>
+                    <span class="res">{{contrato?.nombre}}</span>
                 </div>
 
                 <div class="form-group">
-                    Domicilio: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.direccion}}
+                    <span class="titleInput">Domicilio:</span> 
+                    <span class="res">{{contrato?.direccion}}
                         {{contrato.colonia}}</span>
                 </div>
 
                 <div class="form-group">
-                    Tarifa: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.tarifa}}</span>
+                    <span class="titleInput">Tarifa:</span> 
+                    <span class="res">{{contrato?.tarifa}}</span>
                 </div>
 
                 <div class="form-group">
-                    Adeudo Total: <span
+                    <span class="titleInput">Adeudo Total:</span> 
+                    <span
                         style="font-weight: bold; font-size: 20px; color: rgb(13, 127, 221); margin-left: 20px;">${{contrato?.adeuda
                         | number:'1.2-5'}}</span>
                 </div>
             </div>
-            <div class="col-4" style="display: flex; justify-content: center;">
+            <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
                 <!--<button class="btn btn-success">Asignar</button>-->
 
                 <div *ngIf="contrato.estatus == 'Activo' ; else elseBlock33">
@@ -85,7 +99,7 @@
 
                     <div *ngIf="contrato.adeuda <= 0 ; else conAdeudo">&nbsp;</div>
                     <ng-template #conAdeudo>
-                        <button class="btn btn-success"
+                        <button class="btn btn-success" style="font-weight: 600;"
                             (click)="tocheckout(contrato.adeuda, contrato.contrato, user.nombre)">Generar Pago</button>
                     </ng-template>
 
@@ -96,7 +110,7 @@
                     <div>
                         No es posible realizar el pago por este medio, Debe presentarse en las instaciones del
                         <span style="color: rgb(97, 97, 97); font-weight: bolder;">SMAPAC</span> para el pago de <br>
-                        <span style="font-weight:bold; color: rgb(194, 13, 13);">Reconexión</span>
+                        <span class="error" style="font-weight:bold; ">Reconexión</span>
                     </div>
                 </ng-template>
 
@@ -113,9 +127,9 @@
 
     </div>
 
-    <div class="pt-5" *ngIf=(infoMessage)>
+    <div class="pt-5 error" *ngIf=(infoMessage)>
 
-        <div style="color: red; font-size: 18px; font-weight: bold;" class="form-group">
+        <div style="font-size:18px; font-weight: bold;" class="form-group">
             {{infoMessage}}
         </div>
 

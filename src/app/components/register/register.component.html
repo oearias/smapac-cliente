@@ -1,69 +1,46 @@
 <div class="login Card--shadow">
-    <div class="hijo mt-5">
-        <form (submit)='onRegisterUser()' id="form-register">
+  <div class="hijo mt-3">
+    <form (submit)='onRegisterUser()' id="form-register">
 
-            <h3>Registrarse</h3>
+      <h3>Registrarse</h3>
 
-            <div class="form-group">
-                <input class="form-control" type="text" [(ngModel)]="user.nombre" name="nombre" id="nombre"
-                    placeholder="Nombre">
-            </div>
-
-            <div class="form-group">
-                <input class="form-control" type="mail" [(ngModel)]="user.email" name="email" id="email"
-                    placeholder="Correo">
-            </div>
-
-            <div class="form-group">
-                <input type="password" class="form-control"  [(ngModel)]="user.password" name="password" id="password"
-                    placeholder="Contraseña">
-            </div>
-
-            <div class="form-group">
-                <input type="password" class="form-control"  id="passAux"
-                    placeholder="Confirmar Contraseña">
-            </div>
-
-            <button type="submit" class="btn btn-primary form-control mb-2"><i
-                    class="fas fa-sign-in-alt"></i>&nbsp;Registrarse</button>
-
-            <div class="error" id="errorMessage" style="color: crimson;"></div>
-
-            <div class="register mt-5">
-
-                <div class="form-group">
-                </div>
-
-                <div class="form-group">
-                    <a href="./">Volver</a>
-                </div>
-
-            </div>
-
-
-
-
-        </form>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+      <div class="form-group">
+        <span class="titleInput">Nombre</span>
+        <input class="form-control" type="text" [(ngModel)]="user.nombre" name="nombre" id="nombre">
       </div>
-    </div>
+
+      <div class="form-group">
+        <div>
+          <span class="titleInput">Correo Electrónico</span>
+        </div>
+        <input class="form-control" type="mail" [(ngModel)]="user.email" name="email" id="email">
+      </div>
+
+      <div class="form-group">
+        <span class="titleInput">Contraseña</span>
+        <input type="password" class="form-control" [(ngModel)]="user.password" name="password" id="password">
+      </div>
+
+      <div class="form-group">
+        <span class="titleInput">Confirmar contraseña</span>
+        <input type="password" class="form-control" id="passAux">
+      </div>
+
+      <button type="submit" class="btn btn-primary form-control mb-2">Registrarse</button>
+
+      <div class="error" id="errorMessage" style="color: crimson;"></div>
+
+      <div class="register mt-2">
+
+        <div class="form-group titleInput">
+          ¿Tienes cuenta? <a href="#" [routerLink]="['/']">Inicia sesión</a>
+        </div>
+
+      </div>
+
+
+
+
+    </form>
   </div>
+</div>

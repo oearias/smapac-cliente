@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
+declare var $: any;
+
 @Component({
   selector: 'app-forgot-password',
   templateUrl: './forgot-password.component.html',
@@ -10,7 +12,7 @@ import { Router } from '@angular/router';
 export class ForgotPasswordComponent implements OnInit {
 
   user = {
-    email : ''
+    email: ''
   }
 
   constructor(
@@ -21,17 +23,35 @@ export class ForgotPasswordComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  resetPassword(){
+  resetPassword() {
+
+    let error=''
+
     this.authService.resetPassword(this.user.email).subscribe(res => {
-      if(res.info == 'OK'){
+
+      console.log('from client ', res);
+
+      if (res.info == 'OK') {
 
         //redirect
         this.router.navigate(['/reset']);
 
+      }else{
+        $('#errorMessage').text(res)
       }
 
     }, err => {
-      console.log(err.message);
+
+
+      if (err.error) {
+        error = err.error.msg;
+
+        if (err.error.errors) {
+          error = err.error.errors[0]['msg'];
+        }
+
+        $('#errorMessage').text(error)
+      }
     })
   }
 

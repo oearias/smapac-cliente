@@ -1,6 +1,6 @@
 .login{
     width: 400px;
-    height: 420px;
+    height: 520px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -40,7 +40,7 @@
 
 .error{
     margin-top: 10px;
-    color: crimson;
+    color: #cd3d64;
     font-size: 14px;
     font-weight: 500;
 }

@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
           error =  err.error.errors[0]['msg'];
         }
 
-        $('#errorMessage').text('*'+error)
+        $('#errorMessage').text(error)
       }
       
     })
