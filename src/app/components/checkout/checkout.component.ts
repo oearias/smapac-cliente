@@ -1,10 +1,10 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import {WindowRef} from "../../WindowRef";
+import { WindowRef } from "../../WindowRef";
 import { environment } from "../../../environments/environment";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RestService } from "../../services/rest.service";
-import { ActivatedRoute } from "@angular/router";
-import {Toaster} from "ngx-toast-notifications";
+import { ActivatedRoute, Router } from '@angular/router';
+import { Toaster } from "ngx-toast-notifications";
 
 declare global {
   interface Window {
@@ -37,7 +37,10 @@ export class CheckoutComponent implements OnInit {
     private fb: FormBuilder,
     private toaster: Toaster,
     private cd: ChangeDetectorRef,
-    private restService: RestService, private route: ActivatedRoute) {
+    private restService: RestService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.STRIPE = window.Stripe(environment.stripe_pk);
   }
 
@@ -157,7 +160,6 @@ export class CheckoutComponent implements OnInit {
 
       //TODO: Nuestra api devolvera un "client_secret" que es un token unico por intencion de pago
       //TODO: SDK de stripe se encarga de verificar si el banco necesita autorizar o no
-      
       this.STRIPE.handleCardPayment(data.client_secret)
         .then(async () => {
 
@@ -166,7 +168,13 @@ export class CheckoutComponent implements OnInit {
 
           //TODO: Enviamos el id "localizador" de nuestra orden para decirle al backend que confirme con stripe si es verdad!
           await this.restService.confirmOrder(this.localizator)
-          
+
+          setTimeout(() => {
+            console.log('Gracias');
+
+            this.router.navigate(['/thankyou']);
+          }, 7000)
+
         })
         .catch(() => {
           this.toaster.open('Error con el pago')

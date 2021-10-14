@@ -187,7 +187,7 @@ export class ValidaContratoComponent implements OnInit {
 
   tocheckout(importe:number, contrato:number, nombre:string){
     
-    this.restService.generateOrder(contrato, importe).subscribe((data)=>{
+    this.restService.generateOrder(contrato, importe, nombre).subscribe((data)=>{
 
       this.router.navigate(['/checkout', {localizator: data?.localizator, amount: importe, nombre:nombre, contrato: contrato}])
     })

@@ -41,6 +41,7 @@ const routes: Route[] = [
       { path: 'reset', component: InfoPasswordComponent },
       { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
       { path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard] },
+      { path: 'thankyou', component: ThankyouComponent, canActivate: [AuthGuard] },
     ]
   },
 
