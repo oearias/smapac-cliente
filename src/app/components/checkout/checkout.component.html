@@ -1,60 +1,66 @@
 <div class="container">
-    <div class="checkout mt-5">
-        <div class="checkout-in">
-          <div class="checkout-user">
-          </div>
-      
-          <div class="checkout-customer">
-            <div class="title">Hola, <span class="highlight">{{nombre}}</span></div>
-          </div>
-      
-          <div class="checkout-card">
-            <div class="checkbox-alert">
-              A continuación debes de introducir los datos de tu tarjeta para procesar el pago del contrato: 
-              <span style="font-weight: 700;">{{contrato}}</span>
-              <br><br>
-              El pago se procesará mediante la plataforma de <b><a href="https://stripe.com/" target="_blank">stripe</a></b>
-            </div>
-    
-            <form action="" [formGroup]="form" (submit)="initPay()">
-              <div class="input input-amount">
-                <br>
-                <label class="label">Monto a pagar </label>
-                <div class="row">
-                    <div class="col-10">
-                        <input class="form-control" id="amount" type="text"  readonly formControlName="amount" placeholder="0.00">
-                    </div>
+  <div class="Card--shadow">
 
-                    <div class="col-2" style="display: flex; justify-content: center; margin-top: 5px;">
-                        <span class="currency">Mxn</span>
-                    </div>
-                    
-                
-                
+
+    <div class="checkout p-5 mt-5">
+      <div class="checkout-in">
+        <div class="checkout-user">
+        </div>
+  
+        <div class="checkout-customer">
+          <div class="title">Hola, <span class="highlight">{{nombre}}</span></div>
+        </div>
+  
+        <div class="checkout-card">
+          <div class="checkbox-alert">
+            A continuación debes de introducir los datos de tu tarjeta para procesar el pago del contrato:
+            <span style="font-weight: 700;">{{contrato}}</span>
+            <br><br>
+            El pago se procesará mediante la plataforma de <b><a href="https://stripe.com/" target="_blank">stripe</a></b>
+          </div>
+  
+          <form action="" [formGroup]="form" (submit)="initPay()">
+            <div class="input input-amount">
+              <br>
+              <label class="label">Monto a pagar </label>
+              <div class="row">
+                <div class="col-10">
+                  <input class="form-control" id="amount" type="text" readonly formControlName="amount"
+                    placeholder="0.00">
                 </div>
-                
+  
+                <div class="col-2" style="display: flex; justify-content: center; margin-top: 5px;">
+                  <span class="currency">Mxn</span>
+                </div>
+  
+  
+  
               </div>
-              <hr>
-              <div class="input">
-                <label class="label">Número de tarjeta</label>
-                <div id="card"></div>
-              </div>
-              <hr>
-              <div class="input">
-                <label class="label">CVC</label>
-                <div id="cvc"></div>
-              </div>
-              <hr>
-              <div class="input">
-                <label class="label">Fecha de vencimiento</label>
-                <div id="exp"></div>
-              </div>
-      
-              <!--<button class="btn btn-primary mt-3" type="button">Regresar</button>-->
-
-              <button class="btn btn-success mt-3 mr-5" [disabled]="form.invalid || form.disabled" type="submit">Pagar</button>
-            </form>
-          </div>
+  
+            </div>
+            <hr>
+            <div class="input">
+              <label class="label">Número de tarjeta</label>
+              <div id="card"></div>
+            </div>
+            <hr>
+            <div class="input">
+              <label class="label">CVC</label>
+              <div id="cvc"></div>
+            </div>
+            <hr>
+            <div class="input">
+              <label class="label">Fecha de vencimiento</label>
+              <div id="exp"></div>
+            </div>
+  
+            <!--<button class="btn btn-primary mt-3" type="button">Regresar</button>-->
+  
+            <button class="btn btn-success mt-3 mr-5" [disabled]="form.invalid || form.disabled"
+              type="submit">Pagar</button>
+          </form>
         </div>
       </div>
+    </div>
+  </div>
 </div>

@@ -1,15 +1,15 @@
-<div class="login Card--shadow">
+<div class="login Card--shadow" >
     <div class="hijo">
-        <form (submit)='onLoginUser()' id="form-authentication">
+        <form [formGroup]="form" (submit)='onLoginUser()' id="form-authentication">
 
             <h3>Inicia sesión en tu cuenta</h3>
             <div class="form-group">
-                
+
                 <div>
-                    <span class="titleInput">Correo Electrónico</span>
+                    <span class="titleInput">Correo electrónico</span>
                 </div>
-                <input class="form-control form-control-lg" type="mail" [(ngModel)]="user.email" name="email"
-                    id="email">
+                <input class="form-control form-control-lg" 
+                formControlName="email" type="mail" id="email">
             </div>
 
 
@@ -26,22 +26,23 @@
                     </div>
                     <div class="col-8" style="text-align: right;">
                         <span style="padding-top: -20;">
-                            <a href="#" [routerLink]="['./forgot-password']">¿No recuerdas la contraseña?</a>
+                            <a href="#" [routerLink]="['/forgot-password']">¿No recuerdas la contraseña?</a>
                         </span>
                     </div>
                 </div>
 
-                <input type="password" class="form-control" [(ngModel)]="user.password" name="password" id="password">
+                <input type="password" class="form-control form-control-lg" formControlName="password"
+                    id="password">
             </div>
 
-            <button type="submit" class="btn btn-primary form-control" style="font-weight: 600;">Entrar</button>
+            <button id="btn-entrar" type="submit" class="btn btn-primary form-control" style="font-weight: 600;">Entrar</button>
 
-            <div class="error" id="errorMessage" style="color: crimson;"></div>
+            <div class="error" id="errorMessage"></div>
 
             <div class="register mt-5">
 
                 <div class="form-group titleInput">
-                    ¿Aún no tienes cuenta? <a href="#" [routerLink]="['./register']">Registrate</a>
+                    ¿Aún no tienes cuenta? <a href="#" [routerLink]="['/register']">Registrate</a>
                 </div>
 
             </div>

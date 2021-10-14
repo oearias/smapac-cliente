@@ -33,7 +33,8 @@ export class CheckoutComponent implements OnInit {
   contrato !: string;
   localizator !: string;
 
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private toaster: Toaster,
     private cd: ChangeDetectorRef,
     private restService: RestService, private route: ActivatedRoute) {

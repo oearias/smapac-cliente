@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,20 +20,32 @@ import { AuthService } from './services/auth.service';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 
-import {TOAST_NOTIFICATIONS_CONFIG, ToastNotificationsModule} from "ngx-toast-notifications";
+import { TOAST_NOTIFICATIONS_CONFIG, ToastNotificationsModule } from "ngx-toast-notifications";
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { InfoPasswordComponent } from './components/info-password/info-password.component';
+import { ThankyouComponent } from './components/thankyou/thankyou.component';
 
 
 const routes: Route[] = [
-  { path: '', component: LoginComponent },
-  { path: 'home', component: HomeComponent },
+
+  /*{ path: '', component: LoginComponent },*/
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
+  {
+    path: '', component: HomeComponent,
+    children: [
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
+      { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'reset', component: InfoPasswordComponent },
+      { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+      { path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard] },
+    ]
+  },
+
   
-  { path: 'register', component: RegisterComponent },
-  { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'reset', component: InfoPasswordComponent },
-  { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+ 
   {
     path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard],
     children: [{ path: 'login', redirectTo: 'valida', pathMatch: 'full' }],
@@ -61,7 +73,8 @@ const routes: Route[] = [
     CheckoutComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
-    InfoPasswordComponent
+    InfoPasswordComponent,
+    ThankyouComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +94,7 @@ const routes: Route[] = [
     useClass: TokenInterceptorService,
     multi: true
   },
-  {provide: TOAST_NOTIFICATIONS_CONFIG, useValue: {duration: 6000, type: 'dark', position: 'top-center'}},
+  { provide: TOAST_NOTIFICATIONS_CONFIG, useValue: { duration: 6000, type: 'dark', position: 'top-center' } },
   ],
   bootstrap: [AppComponent]
 })

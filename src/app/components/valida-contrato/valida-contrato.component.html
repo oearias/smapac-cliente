@@ -1,4 +1,29 @@
-<div class="header-toolbar">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+    <a class="navbar-brand" href="#">SMAPAC</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto">
+        </ul>
+        <ul class="navbar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link" (click)="logOut()" [routerLink]="['/']"><i class="fas fa-user"></i> Cerrar sesión</a>
+              </li>
+
+            <li class="nav-item" style="width: 10px;">
+            </li>
+
+        </ul>
+
+    </div>
+</nav>
+
+
+
+<!--
+    <div class="header-toolbar">
 
     <div class="logo" style="display: flex; justify-content: left ; align-items: center;">
         <div>
@@ -7,9 +32,10 @@
         
     </div>
 
-    <div style="display: flex; justify-content: center; padding-top: 20px;">
-    </div>
 </div>
+-->
+
+
 <div class="container-fluid" style="margin-top: 10px;">
 
     <div class="mt-5">
@@ -18,7 +44,7 @@
     </div>
 
 
-    <div class="pt-4 pb-3" >
+    <div class="pt-4 pb-3">
         <div class="form-group mb-2">
             <span class="titleInput">Ingrese el numero de contrato: </span>
         </div>
@@ -31,15 +57,15 @@
                         <input class="form-control" id=contratoId type="text">
                     </div>
                     <div class="col-3" style="display: flex; justify-content: center;">
-                        <button style="font-weight: 600;" id="btnContrato" (click)="getContrato()" class="btn btn-primary"><i
-                                class="fas fa-check-circle"></i>&nbsp;&nbsp;Validar</button>
+                        <button style="font-weight: 600;" id="btnContrato" (click)="getContrato()"
+                            class="btn btn-primary"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;Validar</button>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        
+
 
 
 
@@ -56,14 +82,14 @@
                             style="margin-left:20px; font-weight:bold; color: #1ea672">{{contrato?.estatus}}</span>
                     </div>
                     <ng-template #elseBlock>
-                        Estatus: <span
-                            class="error" style="margin-left:20px; font-weight:bold; ">{{contrato?.estatus}}</span>
+                        Estatus: <span class="error"
+                            style="margin-left:20px; font-weight:bold; ">{{contrato?.estatus}}</span>
                     </ng-template>
                 </div>
 
                 <div class="form-group">
                     <span class="titleInput">Contrato:</span>
-                    <span class="res" >{{contrato?.contrato}}</span>
+                    <span class="res">{{contrato?.contrato}}</span>
                 </div>
 
                 <div class="form-group">
@@ -72,18 +98,18 @@
                 </div>
 
                 <div class="form-group">
-                    <span class="titleInput">Domicilio:</span> 
+                    <span class="titleInput">Domicilio:</span>
                     <span class="res">{{contrato?.direccion}}
                         {{contrato.colonia}}</span>
                 </div>
 
                 <div class="form-group">
-                    <span class="titleInput">Tarifa:</span> 
+                    <span class="titleInput">Tarifa:</span>
                     <span class="res">{{contrato?.tarifa}}</span>
                 </div>
 
                 <div class="form-group">
-                    <span class="titleInput">Adeudo Total:</span> 
+                    <span class="titleInput">Adeudo Total:</span>
                     <span
                         style="font-weight: bold; font-size: 20px; color: rgb(13, 127, 221); margin-left: 20px;">${{contrato?.adeuda
                         | number:'1.2-5'}}</span>
@@ -109,7 +135,7 @@
                 <ng-template #elseBlock33>
                     <div>
                         No es posible realizar el pago por este medio, Debe presentarse en las instaciones del
-                        <span style="color: rgb(97, 97, 97); font-weight: bolder;">SMAPAC</span> para el pago de <br>
+                        <span style="color: rgb(97, 97, 97); font-weight: bolder;">SMAPAC</span> para el pago de
                         <span class="error" style="font-weight:bold; ">Reconexión</span>
                     </div>
                 </ng-template>

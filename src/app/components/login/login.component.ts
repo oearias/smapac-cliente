@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 declare var $: any;
 
@@ -17,39 +18,55 @@ export class LoginComponent implements OnInit {
     password: ''
   }
 
+  form: FormGroup = new FormGroup({})
+
   constructor(
     private authService: AuthService,
-    public router: Router
+    public router: Router,
+    private  fb: FormBuilder
     ) { }
 
   ngOnInit(): void {
+
+    this.form = this.fb.group({
+      email: ['', [Validators.required, Validators.min(1)] ],
+      password: ['', [Validators.required, Validators.minLength(6)]] //TODO true | false
+    })
+
   }
 
   onLoginUser() {
 
-    this.authService.login(this.user).subscribe(res => {
+    if(this.form.valid){
 
-      localStorage.setItem('token', res.token);
-      localStorage.setItem('email', this.user.email);
+      this.authService.login(this.form.value).subscribe(res => {
 
-      this.router.navigate(['/valida', {email: this.user.email}]);
-      
-    }, err => {
-
-      let error=''
-
-      if(err.error){
-
-        error = err.error.msg;
-
-        if(err.error.errors){
-          error =  err.error.errors[0]['msg'];
+        localStorage.setItem('token', res.token);
+        localStorage.setItem('email', this.form.value.email);
+  
+        this.router.navigate(['/valida', {email: this.form.value.email}]);
+        
+      }, err => {
+  
+        let error=''
+  
+        if(err.error){
+  
+          error = err.error.msg;
+  
+          if(err.error.errors){
+            error =  err.error.errors[0]['msg'];
+          }
+  
+          $('#errorMessage').text(error)
         }
+        
+      })
+    }else{
+      console.log("Form invalido");
+    }
 
-        $('#errorMessage').text(error)
-      }
-      
-    })
+    
 
 
   }

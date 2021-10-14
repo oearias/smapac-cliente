@@ -268,4 +268,9 @@ export class ValidaContratoComponent implements OnInit {
 
   }
 
+  logOut(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('email');
+  }
+
 }
