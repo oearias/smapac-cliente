@@ -28,6 +28,8 @@ import { InfoPasswordComponent } from './components/info-password/info-password.
 
 const routes: Route[] = [
   { path: '', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
+  
   { path: 'register', component: RegisterComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'reset', component: InfoPasswordComponent },
