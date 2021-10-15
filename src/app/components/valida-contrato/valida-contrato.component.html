@@ -1,5 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <!--<a class="navbar-brand" href="#">SMAPAC</a>-->
+<!--<nav class="navbar navbar-expand-md navbar-light bg-light">
     <img src="../../../assets/img/smapac-logo-300x190.png" style="height: 60px;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -20,22 +19,8 @@
         </ul>
 
     </div>
-</nav>
+</nav>-->
 
-
-
-<!--
-    <div class="header-toolbar">
-
-    <div class="logo" style="display: flex; justify-content: left ; align-items: center;">
-        <div>
-            <img src="../../../assets/img/smapac-logo-300x190.png" style="height: 70px;" >
-        </div>
-        
-    </div>
-
-</div>
--->
 
 
 <div class="container-fluid" style="margin-top: 10px;">
@@ -58,11 +43,11 @@
 
 
                     <div class="inputContrato">
-                        <input class="form-control" id=contratoId type="number">
+                        <input class="form-control" id=contratoId type="number" min="0">
                     </div>
                    
                     <div class="btnValidar" >
-                        <button  id="btnContrato" (click)="getContrato()" class="btn btn-primary">
+                        <button  id="btnContrato" (click)="getContrato()" disabled="true" class="btn btn-primary">
                             
                             <i class="fas fa-check-circle"></i><span class="btnLabel">&nbsp;&nbsp; Validar</span>
                         </button>
@@ -158,12 +143,6 @@
 
             </div>
         </div>
-
-
-
-
-
-
 
     </div>
 

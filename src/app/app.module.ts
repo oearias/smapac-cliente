@@ -25,6 +25,10 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { InfoPasswordComponent } from './components/info-password/info-password.component';
 import { ThankyouComponent } from './components/thankyou/thankyou.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+
+import { interceptorProviders } from './interceptors'
+import { SpinnerService } from './services/spinner.service';
 
 
 const routes: Route[] = [
@@ -42,26 +46,24 @@ const routes: Route[] = [
       { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
       { path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard] },
       { path: 'thankyou', component: ThankyouComponent, canActivate: [AuthGuard] },
+      {
+        path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
+        children: [
+          { path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard] },
+          { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] }
+        ]
+      }
     ]
   },
 
-  
- 
-  {
+
+
+  /*{
     path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard],
-    children: [{ path: 'login', redirectTo: 'valida', pathMatch: 'full' }],
-  }
+    children: [{ path: 'login', redirectTo: 'dashboard', pathMatch: 'full' }],
+  }*/
 ]
 
-/*
-const routes: Route[] = [
-  {path: '', component: ValidaContratoComponent},
-  {
-    path: '', component: ValidaContratoComponent,
-    children: [{path: 'valida', redirectTo:'valida', pathMatch: 'full'}]
-  }
-]
-*/
 
 @NgModule({
   declarations: [
@@ -75,7 +77,8 @@ const routes: Route[] = [
     ResetPasswordComponent,
     ForgotPasswordComponent,
     InfoPasswordComponent,
-    ThankyouComponent
+    ThankyouComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -87,15 +90,19 @@ const routes: Route[] = [
     BrowserAnimationsModule,
     ToastNotificationsModule,
   ],
-  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy },
+  providers: [
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
     AuthService,
     AuthGuard,
-  {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  },
-  { provide: TOAST_NOTIFICATIONS_CONFIG, useValue: { duration: 6000, type: 'dark', position: 'top-center' } },
+    [
+      {
+        provide: HTTP_INTERCEPTORS,
+        useClass: TokenInterceptorService,
+        multi: true
+      },
+    ],
+
+    { provide: TOAST_NOTIFICATIONS_CONFIG, useValue: { duration: 6000, type: 'dark', position: 'top-center' } },
   ],
   bootstrap: [AppComponent]
 })

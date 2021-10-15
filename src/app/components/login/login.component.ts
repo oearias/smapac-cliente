@@ -37,6 +37,8 @@ export class LoginComponent implements OnInit {
 
   onLoginUser() {
 
+    let error='';
+
     if(this.form.valid){
 
       this.authService.login(this.form.value).subscribe(res => {
@@ -44,11 +46,11 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', res.token);
         localStorage.setItem('email', this.form.value.email);
   
-        this.router.navigate(['/valida', {email: this.form.value.email}]);
+        this.router.navigate(['/dashboard/valida', {email: this.form.value.email}]);
         
       }, err => {
   
-        let error=''
+        
   
         if(err.error){
   
@@ -63,7 +65,7 @@ export class LoginComponent implements OnInit {
         
       })
     }else{
-      console.log("Form invalido");
+      $('#errorMessage').text("Formulario invalido")
     }
 
     

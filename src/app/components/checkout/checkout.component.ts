@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { RestService } from "../../services/rest.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Toaster } from "ngx-toast-notifications";
+import { SpinnerService } from '../../services/spinner.service';
 
 declare global {
   interface Window {
@@ -33,13 +34,16 @@ export class CheckoutComponent implements OnInit {
   contrato !: string;
   localizator !: string;
 
+  isLoading$ = this.spinnerService.isLoading$;
+
   constructor(
     private fb: FormBuilder,
     private toaster: Toaster,
     private cd: ChangeDetectorRef,
     private restService: RestService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService
   ) {
     this.STRIPE = window.Stripe(environment.stripe_pk);
   }
@@ -164,9 +168,6 @@ export class CheckoutComponent implements OnInit {
         .then(async () => {
 
           //TODO: 👌 Money Money!!!
-          
-          
-          ///
           //this.toaster.open({ text: 'Cargo realizado con Éxito', caption: 'Yeah!', type: 'success' })
 
           //TODO: Enviamos el id "localizador" de nuestra orden para decirle al backend que confirme con stripe si es verdad!
@@ -178,7 +179,7 @@ export class CheckoutComponent implements OnInit {
 
             if(res.data.status == "succeeded"){
 
-              this.toaster.open({ text: 'Cargo realizado con Éxito', caption: 'Yeah!', type: 'success' })
+              this.toaster.open({ text: 'Cargo realizado con Éxito', caption: 'Enhorabuena!', type: 'success' })
 
               setTimeout(() => {
                 console.log('Gracias');
@@ -195,23 +196,23 @@ export class CheckoutComponent implements OnInit {
               }
 
               this.toaster.open('Error con el pago'+error);
+
+              this.spinnerService.hide();
+
+
             }
 
           } )
 
-          /*
-          setTimeout(() => {
-            console.log('Gracias');
-
-            this.router.navigate(['/thankyou']);
-          }, 7000)*/
-
         })
         .catch(() => {
           this.toaster.open('Error con el pago')
+
+          this.spinnerService.hide();
         })
     } catch (e) {
       this.toaster.open({ text: 'Algo ocurrió mientras procesaba el pago', caption: 'ERROR', type: 'danger' })
+      this.spinnerService.hide();
     }
 
   }

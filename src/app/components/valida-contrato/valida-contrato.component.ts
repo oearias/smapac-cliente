@@ -54,9 +54,6 @@ export class ValidaContratoComponent implements OnInit {
 
   ngOnInit(): void {
 
-
-    //this.getContratos();
-
     this.route.params.subscribe(params => {
       this.user.email = params.email
 
@@ -64,11 +61,36 @@ export class ValidaContratoComponent implements OnInit {
 
     this.getUser();
 
+    
+
     $("#contratoId").keyup(function (event: any) {
       if (event.keyCode === 13) {
         $("#btnContrato").click();
       }
+
+      let valor = $("#contratoId").val();
+
+      if (valor.length > 0) {
+
+        $("#btnContrato").removeAttr('disabled');
+      } else {
+        $("#btnContrato").attr('disabled', true);
+      }
+
     });
+
+    $("#contratoId").change(function (event: any) {
+
+      let valor = $("#contratoId").val();
+
+      if (valor.length > 0) {
+
+        $("#btnContrato").removeAttr('disabled');
+      } else {
+        $("#btnContrato").attr('disabled', true);
+      }
+    })
+
 
 
   }
@@ -134,7 +156,6 @@ export class ValidaContratoComponent implements OnInit {
     //preguntamos si hay email en el localstorage
 
     if ((this.user.email == '') || (!this.user.email)) {
-      console.log("si hay email desde el storage");
 
       this.user.email = localStorage.getItem('email') || '';
     }
@@ -197,10 +218,8 @@ export class ValidaContratoComponent implements OnInit {
 
     this.restService.generateOrder(contrato, importe, nombre).subscribe((data) => {
 
-      this.router.navigate(['/checkout', { localizator: data?.localizator, amount: importe, nombre: nombre, contrato: contrato }])
+      this.router.navigate(['/dashboard/checkout', { localizator: data?.localizator, amount: importe, nombre: nombre, contrato: contrato }])
     })
-
-
   }
 
   generateForm() {
