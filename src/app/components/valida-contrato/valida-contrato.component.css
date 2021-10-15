@@ -19,6 +19,20 @@
     color: #51545c;
 }
 
+.titleName{
+    font-weight: bolder; 
+    font-size: 30px; 
+    color: #3c4257;
+    line-height: 30px;
+}
+
+.hijo{
+    display: flex;
+    align-items: center;
+
+    background-clip: border-box;
+}
+
 .error{
     color: #cd3d64;
 }
@@ -28,6 +42,20 @@
     font-size: 16px;
     font-weight: 700;
     margin-left: 20px;
+}
+
+.adeudo{
+    font-weight: bold; 
+    font-size: 20px; 
+    color: rgb(13, 127, 221); 
+    margin-left: 20px;
+}
+
+.status{
+    font-size: 18px;
+    margin-left:20px; 
+    font-weight:bold; 
+    color: #1ea672
 }
 
 .card-shadow{
@@ -41,4 +69,189 @@
 
 a {
     cursor: pointer;
+}
+
+@media (max-width: 320px){
+    .card-shadow{
+        background-color: blue;
+    }
+
+    .inputContrato{
+        width: 60%;
+    }
+
+    .btnValidar {
+
+        width: 40%;
+        display: flex; 
+        justify-content: center;
+        font-weight: 600;
+        background-color: blue;
+    }
+
+    .btnValidar button {
+        width: 80%;
+    }
+
+    .btnLabel{
+        display: none;
+    }
+
+    .res{
+        margin-left: 5px;
+    }
+}
+
+@media (min-width: 321px) and (max-width: 499px){
+    .card-shadow{
+        background-color: crimson;
+    }
+
+    .inputContrato{
+        width: 60%;
+    }
+
+    .btnValidar {
+
+        width: 40%;
+        display: flex; 
+        justify-content: center;
+        font-weight: 600;
+        background-color: crimson;
+    }
+
+    .btnValidar button {
+        width: 100%;
+    }
+}
+
+@media (min-width: 500px) and (max-width: 768px){
+    .card-shadow{
+        background-color: yellow;
+    }
+
+    .inputContrato{
+        width: 60%;
+    }
+
+    .btnValidar {
+
+        width: 40%;
+        display: flex; 
+        justify-content: center;
+        font-weight: 600;
+        background-color: yellow;
+    }
+
+    .btnValidar button {
+        width: 80%;
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px){
+    .card-shadow{
+        background-color: rgb(190, 155, 36);
+    }
+
+    .cajaFormulario{
+        width: 80%;
+    }
+
+    .inputContrato{
+        width: 40%;
+    }
+
+    .btnValidar {
+
+        width: 20%;
+        display: flex; 
+        justify-content: center;
+        font-weight: 600;
+        background-color: rgb(190, 155, 36);
+    }
+
+    .btnValidar button {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1269px){
+    .card-shadow{
+        background-color: rgb(126, 122, 111);
+    }
+
+    .cajaFormulario{
+        width: 80%;
+    }
+
+    .inputContrato{
+        width: 60%;
+    }
+
+    .btnValidar {
+
+        width: 20%;
+        display: flex; 
+        justify-content: center;
+        font-weight: 600;
+        background-color: rgb(126, 122, 111);
+    }
+
+    .btnValidar button {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1270px) and (max-width: 1800px){
+    .card-shadow{
+        background-color: rgb(235, 132, 63);
+    }
+
+    .cajaFormulario{
+        width: 80%;
+    }
+
+    .inputContrato{
+        width: 60%;
+    }
+
+    .btnValidar {
+
+        width: 20%;
+        display: flex; 
+        justify-content: center;
+        font-weight: 600;
+        background-color: rgb(235, 132, 63);
+    }
+
+    .btnValidar button {
+        width: 100%;
+    }
+
+    .res{
+        color: #3c4257;
+        font-size: 20px;
+        font-weight: 700;
+        margin-left: 20px;
+    }
+
+    .status{
+        font-size: 24px;
+        margin-left:20px; 
+        font-weight:bold; color: #1ea672
+    }
+
+    .adeudo{
+        font-weight: bold; 
+        font-size: 26px; 
+        color: rgb(13, 127, 221); 
+        margin-left: 20px;
+    }
+
+    .titleName{
+        font-weight: bolder; 
+        font-size: 30px; 
+        color: #3c4257;
+        line-height: 30px;
+    }
 }

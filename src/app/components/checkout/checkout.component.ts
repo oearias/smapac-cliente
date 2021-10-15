@@ -164,16 +164,47 @@ export class CheckoutComponent implements OnInit {
         .then(async () => {
 
           //TODO: 👌 Money Money!!!
-          this.toaster.open({ text: 'Cargo realizado con Éxito', caption: 'Yeah!', type: 'success' })
+          
+          
+          ///
+          //this.toaster.open({ text: 'Cargo realizado con Éxito', caption: 'Yeah!', type: 'success' })
 
           //TODO: Enviamos el id "localizador" de nuestra orden para decirle al backend que confirme con stripe si es verdad!
-          await this.restService.confirmOrder(this.localizator)
+          await this.restService.confirmOrder(this.localizator).then( res => {
 
+            console.log(res);
+
+            let error = ""
+
+            if(res.data.status == "succeeded"){
+
+              this.toaster.open({ text: 'Cargo realizado con Éxito', caption: 'Yeah!', type: 'success' })
+
+              setTimeout(() => {
+                console.log('Gracias');
+    
+                this.router.navigate(['/thankyou']);
+              }, 4000)
+
+            }else{
+
+              console.log(res.data);
+
+              if(res.data){
+                error = ": "+res.data.last_payment_error['message'];
+              }
+
+              this.toaster.open('Error con el pago'+error);
+            }
+
+          } )
+
+          /*
           setTimeout(() => {
             console.log('Gracias');
 
             this.router.navigate(['/thankyou']);
-          }, 7000)
+          }, 7000)*/
 
         })
         .catch(() => {

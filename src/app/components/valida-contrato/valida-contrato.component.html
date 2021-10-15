@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="#">SMAPAC</a>
+    <!--<a class="navbar-brand" href="#">SMAPAC</a>-->
+    <img src="../../../assets/img/smapac-logo-300x190.png" style="height: 60px;">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -9,8 +10,9 @@
         <ul class="navbar-nav">
 
             <li class="nav-item">
-                <a class="nav-link" (click)="logOut()" [routerLink]="['/']"><i class="fas fa-user"></i> Cerrar sesión</a>
-              </li>
+                <a class="nav-link" (click)="logOut()" [routerLink]="['/']"><i class="fas fa-user"></i> Cerrar
+                    sesión</a>
+            </li>
 
             <li class="nav-item" style="width: 10px;">
             </li>
@@ -40,7 +42,7 @@
 
     <div class="mt-5">
         <span class="titleInputBig">Bienvenido: </span>
-        <span style="font-weight: bolder; font-size: 30px; color: #3c4257;">{{user.nombre}}</span>
+        <span class="titleName">{{user.nombre}}</span>
     </div>
 
 
@@ -52,14 +54,21 @@
         <div class="row">
 
             <div class="col">
-                <div class="row">
-                    <div class="col-9">
-                        <input class="form-control" id=contratoId type="text">
+                <div class="row cajaFormulario">
+
+
+                    <div class="inputContrato">
+                        <input class="form-control" id=contratoId type="number">
                     </div>
-                    <div class="col-3" style="display: flex; justify-content: center;">
-                        <button style="font-weight: 600;" id="btnContrato" (click)="getContrato()"
-                            class="btn btn-primary"><i class="fas fa-check-circle"></i>&nbsp;&nbsp;Validar</button>
+                   
+                    <div class="btnValidar" >
+                        <button  id="btnContrato" (click)="getContrato()" class="btn btn-primary">
+                            
+                            <i class="fas fa-check-circle"></i><span class="btnLabel">&nbsp;&nbsp; Validar</span>
+                        </button>
                     </div>
+
+
                 </div>
             </div>
 
@@ -78,8 +87,11 @@
                 <div class="form-group">
                     <!--Estatus: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.estatus}}</span>-->
 
-                    <div *ngIf="contrato.estatus == 'Activo'; else elseBlock">Estatus: <span
-                            style="margin-left:20px; font-weight:bold; color: #1ea672">{{contrato?.estatus}}</span>
+                    <div *ngIf="contrato.estatus == 'Activo'; else elseBlock">
+                        
+                        <span class="titleInput">Estatus:</span>
+                        
+                        <span class="status">{{contrato?.estatus}}</span>
                     </div>
                     <ng-template #elseBlock>
                         Estatus: <span class="error"
@@ -110,12 +122,11 @@
 
                 <div class="form-group">
                     <span class="titleInput">Adeudo Total:</span>
-                    <span
-                        style="font-weight: bold; font-size: 20px; color: rgb(13, 127, 221); margin-left: 20px;">${{contrato?.adeuda
+                    <span class="adeudo">${{contrato?.adeuda
                         | number:'1.2-5'}}</span>
                 </div>
             </div>
-            <div class="col-4" style="display: flex; justify-content: center; align-items: center;">
+            <div style="display: flex; justify-content: center; align-items: center;">
                 <!--<button class="btn btn-success">Asignar</button>-->
 
                 <div *ngIf="contrato.estatus == 'Activo' ; else elseBlock33">
@@ -125,8 +136,11 @@
 
                     <div *ngIf="contrato.adeuda <= 0 ; else conAdeudo">&nbsp;</div>
                     <ng-template #conAdeudo>
-                        <button class="btn btn-success" style="font-weight: 600;"
+
+                        <div class="hijo">
+                            <button class="btn btn-success" style="font-weight: 600;"
                             (click)="tocheckout(contrato.adeuda, contrato.contrato, user.nombre)">Generar Pago</button>
+                        </div>
                     </ng-template>
 
 
