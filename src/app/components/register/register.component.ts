@@ -47,7 +47,7 @@ export class RegisterComponent implements OnInit {
           localStorage.setItem('token', res.token);
           localStorage.setItem('email', this.user.email);
 
-          this.router.navigate(['/valida', { email: this.user.email }]);
+          this.router.navigate(['/dashboard/valida', { email: this.user.email }]);
 
         })
 

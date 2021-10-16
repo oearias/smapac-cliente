@@ -27,7 +27,7 @@ export class ForgotPasswordComponent implements OnInit {
 
     let error=''
 
-    this.authService.resetPassword(this.user.email).subscribe(res => {
+    this.authService.forgotPassword(this.user.email).subscribe(res => {
 
       console.log('from client ', res);
 

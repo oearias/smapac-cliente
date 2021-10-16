@@ -12,7 +12,6 @@ import { AppComponent } from './app.component';
 import { ValidaContratoComponent } from './components/valida-contrato/valida-contrato.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { RespuestaComponent } from './components/respuesta/respuesta.component';
 import { HomeComponent } from './components/home/home.component';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AuthGuard } from './guards/auth.guard';
@@ -29,6 +28,8 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 
 import { interceptorProviders } from './interceptors'
 import { SpinnerService } from './services/spinner.service';
+import { ResetComponent } from './components/reset/reset.component';
+import { SuccessPasswordComponent } from './components/success-password/success-password.component';
 
 
 const routes: Route[] = [
@@ -42,7 +43,8 @@ const routes: Route[] = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
-      { path: 'reset', component: InfoPasswordComponent },
+      { path: 'reset', component: ResetComponent },
+      { path: 'password-success-changed', component: SuccessPasswordComponent },
       { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
       { path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard] },
       { path: 'thankyou', component: ThankyouComponent, canActivate: [AuthGuard] },
@@ -71,14 +73,15 @@ const routes: Route[] = [
     ValidaContratoComponent,
     LoginComponent,
     RegisterComponent,
-    RespuestaComponent,
     HomeComponent,
     CheckoutComponent,
     ResetPasswordComponent,
     ForgotPasswordComponent,
     InfoPasswordComponent,
     ThankyouComponent,
-    DashboardComponent
+    DashboardComponent,
+    ResetComponent,
+    SuccessPasswordComponent
   ],
   imports: [
     BrowserModule,

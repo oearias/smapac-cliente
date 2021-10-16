@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
 
-  URL_API= 'http://localhost:3000/api/orders/'
+  URL_API= environment.apiUrl+'orders/'
 
   constructor(
     private http: HttpClient

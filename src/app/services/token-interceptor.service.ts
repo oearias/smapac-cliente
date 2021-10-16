@@ -23,14 +23,20 @@ export class TokenInterceptorService implements HttpInterceptor{
 
 
     if(req.body?.token){
-
       this.spinnerService.show();
+    }
+
+    let tokenReset = localStorage.getItem('io-temp');
+
+    if(!tokenReset){
+      tokenReset = '1234'
     }
 
     const tokenizeReq = req.clone({
       setHeaders: {
         Authorization: `${this.authSvc.getToken()}`,
-        'x-token': `${this.authSvc.getToken()}`
+        'x-token': `${this.authSvc.getToken()}`,
+        'reset': `${tokenReset}`
       }
     })
 

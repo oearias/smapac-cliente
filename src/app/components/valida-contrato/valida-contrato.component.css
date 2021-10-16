@@ -72,9 +72,6 @@ a {
 }
 
 @media (max-width: 320px){
-    .card-shadow{
-        background-color: blue;
-    }
 
     .inputContrato{
         width: 60%;
@@ -86,7 +83,6 @@ a {
         display: flex; 
         justify-content: center;
         font-weight: 600;
-        background-color: blue;
     }
 
     .btnValidar button {
@@ -103,9 +99,6 @@ a {
 }
 
 @media (min-width: 321px) and (max-width: 499px){
-    .card-shadow{
-        background-color: crimson;
-    }
 
     .inputContrato{
         width: 60%;
@@ -117,7 +110,6 @@ a {
         display: flex; 
         justify-content: center;
         font-weight: 600;
-        background-color: crimson;
     }
 
     .btnValidar button {
@@ -126,9 +118,7 @@ a {
 }
 
 @media (min-width: 500px) and (max-width: 768px){
-    .card-shadow{
-        background-color: yellow;
-    }
+
 
     .inputContrato{
         width: 60%;
@@ -140,7 +130,6 @@ a {
         display: flex; 
         justify-content: center;
         font-weight: 600;
-        background-color: yellow;
     }
 
     .btnValidar button {
@@ -149,10 +138,6 @@ a {
 }
 
 @media (min-width: 769px) and (max-width: 1024px){
-    .card-shadow{
-        background-color: rgb(190, 155, 36);
-        width: 63%;
-    }
 
     .cajaFormulario{
         width: 80%;
@@ -168,7 +153,6 @@ a {
         display: flex; 
         justify-content: center;
         font-weight: 600;
-        background-color: rgb(190, 155, 36);
     }
 
     .btnValidar button {
@@ -178,7 +162,6 @@ a {
 
 @media (min-width: 1025px) and (max-width: 1269px){
     .card-shadow{
-        background-color: rgb(126, 122, 111);
         width: 63%;
     }
 
@@ -196,7 +179,6 @@ a {
         display: flex; 
         justify-content: center;
         font-weight: 600;
-        background-color: rgb(126, 122, 111);
     }
 
     .btnValidar button {
@@ -207,7 +189,6 @@ a {
 @media (min-width: 1270px) and (max-width: 1800px){
     .card-shadow{
         width: 63%;
-        background-color: rgb(235, 132, 63);
     }
 
     .cajaFormulario{
@@ -224,7 +205,6 @@ a {
         display: flex; 
         justify-content: center;
         font-weight: 600;
-        background-color: rgb(235, 132, 63);
     }
 
     .btnValidar button {
