@@ -34,7 +34,7 @@ export class ForgotPasswordComponent implements OnInit {
       if (res.info == 'OK') {
 
         //redirect
-        this.router.navigate(['/reset']);
+        this.router.navigate(['/info-email']);
 
       }else{
         $('#errorMessage').text(res)

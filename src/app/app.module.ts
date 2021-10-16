@@ -43,6 +43,7 @@ const routes: Route[] = [
       { path: 'login', component: LoginComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'forgot-password', component: ForgotPasswordComponent },
+      { path: 'info-email', component: InfoPasswordComponent },
       { path: 'reset', component: ResetComponent },
       { path: 'password-success-changed', component: SuccessPasswordComponent },
       { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
