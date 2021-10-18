@@ -2,8 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SpinnerService } from '../../services/spinner.service';
 
 declare var $: any;
+
+
 
 
 @Component({
@@ -12,6 +15,8 @@ declare var $: any;
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  isLoading$ = this.spinnerService.isLoading$;
 
   user = {
     email: '',
@@ -23,7 +28,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     public router: Router,
-    private  fb: FormBuilder
+    private  fb: FormBuilder,
+    private spinnerService: SpinnerService
     ) { }
 
   ngOnInit(): void {
@@ -33,6 +39,8 @@ export class LoginComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(6)]] //TODO true | false
     })
 
+   
+
   }
 
   onLoginUser() {
@@ -40,6 +48,8 @@ export class LoginComponent implements OnInit {
     let error='';
 
     if(this.form.valid){
+
+      $('#btn-entrar').attr('disabled',true);
 
       this.authService.login(this.form.value).subscribe(res => {
 
@@ -58,14 +68,18 @@ export class LoginComponent implements OnInit {
   
           if(err.error.errors){
             error =  err.error.errors[0]['msg'];
+
+            $('#btn-entrar').attr('disabled',false);
           }
   
           $('#errorMessage').text(error)
+          $('#btn-entrar').attr('disabled',false);
         }
         
       })
     }else{
       $('#errorMessage').text("Formulario invalido")
+      $('#btn-entrar').attr('disabled',false);
     }
 
     

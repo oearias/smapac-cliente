@@ -35,7 +35,9 @@
                     id="password">
             </div>
 
-            <button id="btn-entrar" type="submit" class="btn btn-primary form-control" style="font-weight: 600;">Entrar</button>
+            <button id="btn-entrar" type="submit" class="btn btn-primary form-control" style="font-weight: 600;">
+                <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Entrar</button>
 
             <div class="error" id="errorMessage"></div>
 
