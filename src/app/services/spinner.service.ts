@@ -8,16 +8,38 @@ import { Subject } from 'rxjs';
 export class SpinnerService {
 
   isLoading$ = new Subject<boolean>();
+  isLoadingReverse$ = new Subject<boolean>();
+
+  isLoadingPago$ = new Subject<boolean>();
+
+  isLoadingCheckout$ = new Subject<boolean>();
 
   constructor() { }
 
   show(): void {
-    console.log("si llama al metodo");
     this.isLoading$.next(true);
+    this.isLoadingReverse$.next(false);
   }
 
   hide(): void {
     this.isLoading$.next(false);
+    this.isLoadingReverse$.next(true);
+  }
+
+  showPago(): void{
+    this.isLoadingPago$.next(true);
+  }
+
+  hidePago(): void{
+    this.isLoadingPago$.next(false);
+  }
+
+  showCheckoutPago(): void{
+    this.isLoadingCheckout$.next(true);
+  }
+
+  hideCheckoutPago(): void{
+    this.isLoadingCheckout$.next(false);
   }
 
 }

@@ -99,11 +99,7 @@ const routes: Route[] = [
     AuthService,
     AuthGuard,
     [
-      {
-        provide: HTTP_INTERCEPTORS,
-        useClass: TokenInterceptorService,
-        multi: true
-      },
+      interceptorProviders
     ],
 
     { provide: TOAST_NOTIFICATIONS_CONFIG, useValue: { duration: 6000, type: 'dark', position: 'top-center' } },

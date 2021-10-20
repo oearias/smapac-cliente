@@ -4,6 +4,8 @@ import { UserService } from '../../services/user.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { RestService } from '../../services/rest.service';
+import { SpinnerService } from '../../services/spinner.service';
+import { LoadingService } from '../../services/loading.service';
 
 declare var $: any;
 
@@ -36,13 +38,23 @@ export class ValidaContratoComponent implements OnInit {
     nombre: ''
   }
 
+  isLoading$ = this.spinnerService.isLoading$;
+  isLoadingReverse$ = this.spinnerService.isLoadingReverse$;
+
+  isLoadingPago$ = this.spinnerService.isLoadingPago$;
+
+  /*isLoading$ = this.loadingService.isLoading$;
+  isLoadingReverse$ = this.loadingService.isLoadingReverse$*/
+
   constructor(
     private contratoService: ContratoService,
     private userService: UserService,
     private restService: RestService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    public spinnerService: SpinnerService,
+    public loadingService: LoadingService
   ) {
     this.form = this.createFormGroup();
 
@@ -61,20 +73,23 @@ export class ValidaContratoComponent implements OnInit {
 
     this.getUser();
 
-    
 
-    $("#contratoId").keyup(function (event: any) {
-      if (event.keyCode === 13) {
-        $("#btnContrato").click();
-      }
+
+    $("#contratoId").keyup((event: any) => {
 
       let valor = $("#contratoId").val();
 
       if (valor.length > 0) {
-
         $("#btnContrato").removeAttr('disabled');
       } else {
         $("#btnContrato").attr('disabled', true);
+      }
+
+
+      if (event.keyCode === 13) {
+
+        this.getContrato();
+
       }
 
     });
@@ -87,6 +102,12 @@ export class ValidaContratoComponent implements OnInit {
 
         $("#btnContrato").removeAttr('disabled');
       } else {
+        $("#btnContrato").attr('disabled', true);
+      }
+    })
+
+    $("#btnContrato").click(() => {
+      if (this.isLoading$) {
         $("#btnContrato").attr('disabled', true);
       }
     })
@@ -105,9 +126,15 @@ export class ValidaContratoComponent implements OnInit {
 
   getContrato() {
 
+    $("#btnContrato").attr('disabled',true);
+
     let id = $('#contratoId').val();
 
     this.contratoService.getContrato(id).subscribe(res => {
+
+      if (res) {
+        $("#btnContrato").removeAttr('disabled');
+      }
 
       this.contrato = res;
       this.infoMessage = '';
@@ -121,8 +148,6 @@ export class ValidaContratoComponent implements OnInit {
         });
 
       }
-
-
 
       if (this.contrato['msg']) {
         this.infoMessage = this.contrato['msg'];
@@ -176,12 +201,6 @@ export class ValidaContratoComponent implements OnInit {
     let message = referencia + importe + idExpress;
     let result;
 
-    console.log(this.referencia);
-    console.log(importe);
-    console.log(idExpress);
-
-    console.log(message);
-
 
     const getUtf8Bytes = (str: any) =>
       new Uint8Array(
@@ -207,17 +226,19 @@ export class ValidaContratoComponent implements OnInit {
 
     this.signature = result;
 
-    console.log(this.signature);
 
     return result;
 
 
   }
 
-  tocheckout(importe: number, contrato: number, nombre: string) {
+  tocheckout(importe: number, contrato: number, nombre: string, email:string) {
 
-    this.restService.generateOrder(contrato, importe, nombre).subscribe((data) => {
+    $("#btnGenPago").attr('disabled', true);
 
+    this.restService.generateOrder(contrato, importe, nombre, email).subscribe((data) => {
+
+      $('#btnGenPago').attr('disabled',false);
       this.router.navigate(['/dashboard/checkout', { localizator: data?.localizator, amount: importe, nombre: nombre, contrato: contrato }])
     })
   }

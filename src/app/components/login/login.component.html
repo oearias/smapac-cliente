@@ -1,3 +1,13 @@
+<!--<div *ngIf="isLoading$ | async" class="d-flex justify-content-center"
+    style="height: 800px; display: flex; align-items: center;">
+    <div class="form-row" style="color: rgb(13, 127, 221); ">
+        <div class="spinner-border" role="status">
+        </div>
+        <div class="ml-2" style="font-size: 20px;"> Cargando...</div>
+    </div>
+</div>-->
+
+
 <div class="login Card--shadow" >
     <div class="hijo">
         <form [formGroup]="form" (submit)='onLoginUser()' id="form-authentication">

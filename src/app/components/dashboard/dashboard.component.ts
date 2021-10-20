@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   logOut() {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
+    localStorage.removeItem('io-temp');
   }
 
 }

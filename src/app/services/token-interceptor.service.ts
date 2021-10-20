@@ -5,6 +5,7 @@ import { HttpRequest, HttpErrorResponse, HttpHandler, HttpEvent, HttpInterceptor
 import { catchError, finalize } from 'rxjs/operators';
 import { throwError, Observable } from 'rxjs';
 import { SpinnerService } from './spinner.service';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class TokenInterceptorService implements HttpInterceptor{
   constructor(
     private authSvc: AuthService,
     private spinnerService: SpinnerService,
+    private loadingService: LoadingService,
     private router: Router
   ) { }
 
@@ -21,12 +23,12 @@ export class TokenInterceptorService implements HttpInterceptor{
 
 
     if(req.body?.token){
-      this.spinnerService.show();
+      this.spinnerService.showCheckoutPago();
     }
 
-    if(req.body?.password){
+    /*if(req.body?.password){
       this.spinnerService.show();
-    }
+    }*/
 
     let tokenReset = localStorage.getItem('io-temp');
 
@@ -43,13 +45,11 @@ export class TokenInterceptorService implements HttpInterceptor{
     })
 
     return next.handle(tokenizeReq).pipe(
-      finalize(()=>this.spinnerService.hide()),
+      
       catchError((err: HttpErrorResponse) => {
         if (err.status === 401) {
           this.router.navigateByUrl('/');
         }
-
-
 
         return throwError(err);
       })

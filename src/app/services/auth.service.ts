@@ -37,12 +37,6 @@ export class AuthService {
 
   resetPassword(token:string, password: string){
 
-    //let headers = new Headers();
-
-    //this.createResetHeader(headers, token)
-
-    //return this.http.put<any>(this.URL_API+'auth/new-password',{password, headers});
-
     const params = {
       newPassword : password
     }

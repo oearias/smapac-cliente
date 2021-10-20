@@ -14,10 +14,10 @@ export class RestService {
     private http: HttpClient
   ) { }
 
-  generateOrder(contrato: number, amount: number, nombre:string ): Observable<any>{
+  generateOrder(contrato: number, amount: number, nombre:string, email:string ): Observable<any>{
 
     let data = {
-      contrato, amount, nombre
+      contrato, amount, nombre, email
     }
 
     return this.http.post(this.URL_API, data)

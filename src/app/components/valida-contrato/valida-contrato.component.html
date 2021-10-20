@@ -45,11 +45,17 @@
                     <div class="inputContrato">
                         <input class="form-control" id=contratoId type="number" min="0">
                     </div>
-                   
-                    <div class="btnValidar" >
-                        <button  id="btnContrato" (click)="getContrato()" disabled="true" class="btn btn-primary">
-                            
-                            <i class="fas fa-check-circle"></i><span class="btnLabel">&nbsp;&nbsp; Validar</span>
+
+                    <div class="btnValidar">
+                        <button id="btnContrato" (click)="getContrato()" style="font-weight: 600;" disabled="true"
+                            class="btn btn-primary">
+
+                            <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+
+                            <span class="btnLabel"><i *ngIf="isLoadingReverse$ | async"
+                                    class="fas fa-check-circle"></i>&nbsp;&nbsp;Validar</span>
+
                         </button>
                     </div>
 
@@ -73,14 +79,14 @@
                     <!--Estatus: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.estatus}}</span>-->
 
                     <div *ngIf="contrato.estatus == 'Activo'; else elseBlock">
-                        
+
                         <span class="titleInput">Estatus:</span>
-                        
-                        <span class="status">{{contrato?.estatus}}</span>
+
+                        <span class="status"><i class="fas fa-check-circle"></i>&nbsp;{{contrato?.estatus}}</span>
                     </div>
                     <ng-template #elseBlock>
                         Estatus: <span class="error"
-                            style="margin-left:20px; font-weight:bold; ">{{contrato?.estatus}}</span>
+                            style="margin-left:20px; font-weight:bold; "><i class="fas fa-times-circle"></i>&nbsp;{{contrato?.estatus}}</span>
                     </ng-template>
                 </div>
 
@@ -117,14 +123,19 @@
                 <div *ngIf="contrato.estatus == 'Activo' ; else elseBlock33">
 
 
-
-
                     <div *ngIf="contrato.adeuda <= 0 ; else conAdeudo">&nbsp;</div>
                     <ng-template #conAdeudo>
 
                         <div class="hijo">
-                            <button class="btn btn-success" style="font-weight: 600;"
-                            (click)="tocheckout(contrato.adeuda, contrato.contrato, user.nombre)">Generar Pago</button>
+                            <button id="btnGenPago" class="btn btn-success" style="font-weight: 600;"
+                                (click)="tocheckout(contrato.adeuda, contrato.contrato, user.nombre, user.email)">
+
+                                <span *ngIf="isLoadingPago$ | async" class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+
+                                Generar Pago
+                            
+                            </button>
                         </div>
                     </ng-template>
 
@@ -132,13 +143,12 @@
 
                 </div>
                 <ng-template #elseBlock33>
-                    <div>
-                        No es posible realizar el pago por este medio, Debe presentarse en las instaciones del
-                        <span style="color: rgb(97, 97, 97); font-weight: bolder;">SMAPAC</span> para el pago de
-                        <span class="error" style="font-weight:bold; ">Reconexión</span>
+                    <div class="m-3">
+                        No es posible realizar el pago por este medio, debe presentarse en las instaciones del
+                        <span style="color: #3c4257; font-weight: bolder;">SMAPAC</span> para el pago de
+                        <span class="error" style="font-weight:bolder; ">Reconexión</span> correspondiente.
                     </div>
                 </ng-template>
-
 
 
             </div>
@@ -149,12 +159,13 @@
     <div class="pt-5 error" *ngIf=(infoMessage)>
 
         <div style="font-size:18px; font-weight: bold;" class="form-group">
-            {{infoMessage}}
+            <span>
+                <i class="fas fa-exclamation-triangle"></i>&nbsp;{{infoMessage}}
+            </span>
         </div>
 
 
     </div>
-
 
 
 </div>

@@ -6,6 +6,7 @@ import { RestService } from "../../services/rest.service";
 import { ActivatedRoute, Router } from '@angular/router';
 import { Toaster } from "ngx-toast-notifications";
 import { SpinnerService } from '../../services/spinner.service';
+import { LoadingService } from '../../services/loading.service';
 
 declare global {
   interface Window {
@@ -34,7 +35,9 @@ export class CheckoutComponent implements OnInit {
   contrato !: string;
   localizator !: string;
 
-  isLoading$ = this.spinnerService.isLoading$;
+  //isLoading$ = this.spinnerService.isLoading$;
+
+  isLoading$ = this.spinnerService.isLoadingCheckout$;
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +46,8 @@ export class CheckoutComponent implements OnInit {
     private restService: RestService,
     private route: ActivatedRoute,
     private router: Router,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private loadingService: LoadingService
   ) {
     this.STRIPE = window.Stripe(environment.stripe_pk);
   }
@@ -173,7 +177,6 @@ export class CheckoutComponent implements OnInit {
           //TODO: Enviamos el id "localizador" de nuestra orden para decirle al backend que confirme con stripe si es verdad!
           await this.restService.confirmOrder(this.localizator).then( res => {
 
-            console.log(res);
 
             let error = ""
 
@@ -182,21 +185,18 @@ export class CheckoutComponent implements OnInit {
               this.toaster.open({ text: 'Cargo realizado con Éxito', caption: 'Enhorabuena!', type: 'success' })
 
               setTimeout(() => {
-                console.log('Gracias');
     
                 this.router.navigate(['/thankyou']);
               }, 4000)
 
             }else{
 
-              console.log(res.data);
 
               if(res.data){
                 error = ": "+res.data.last_payment_error['message'];
               }
 
               this.toaster.open('Error con el pago'+error);
-
               this.spinnerService.hide();
 
 
@@ -207,7 +207,6 @@ export class CheckoutComponent implements OnInit {
         })
         .catch(() => {
           this.toaster.open('Error con el pago')
-
           this.spinnerService.hide();
         })
     } catch (e) {
@@ -229,6 +228,11 @@ export class CheckoutComponent implements OnInit {
 
   onChangeExp({ error }: any) {
     this.form.patchValue({ cardExp: !error });
+  }
+
+  volver(){
+
+    this.router.navigate(['/dashboard/valida']);
   }
 
 

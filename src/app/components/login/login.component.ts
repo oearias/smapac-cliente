@@ -53,10 +53,22 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(this.form.value).subscribe(res => {
 
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('email', this.form.value.email);
-  
-        this.router.navigate(['/dashboard/valida', {email: this.form.value.email}]);
+        if(res.token){
+          localStorage.setItem('token', res.token);
+          localStorage.setItem('email', this.form.value.email);
+    
+          this.router.navigate(['/dashboard/valida', {email: this.form.value.email}]);
+        }{
+          if(res['msg']){
+            error =  res['msg'];
+            $('#errorMessage').text(error)
+          }
+        }
+
+        console.log(res);
+        $('#btn-entrar').attr('disabled',false);
+
+        
         
       }, err => {
   
