@@ -17,11 +17,13 @@ export class SpinnerService {
   constructor() { }
 
   show(): void {
+
     this.isLoading$.next(true);
     this.isLoadingReverse$.next(false);
   }
 
   hide(): void {
+
     this.isLoading$.next(false);
     this.isLoadingReverse$.next(true);
   }

@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { RestService } from '../../services/rest.service';
 import { SpinnerService } from '../../services/spinner.service';
 import { LoadingService } from '../../services/loading.service';
+import { NgForm } from '@angular/forms';
 
 declare var $: any;
 
@@ -30,6 +31,8 @@ export class ValidaContratoComponent implements OnInit {
   contrato: any;
   referencia: any;
   signature: any;
+  monto!: number;
+  idexpress= "2328";
 
   infoMessage: String = "";
 
@@ -126,7 +129,7 @@ export class ValidaContratoComponent implements OnInit {
 
   getContrato() {
 
-    $("#btnContrato").attr('disabled',true);
+    $("#btnContrato").attr('disabled', true);
 
     let id = $('#contratoId').val();
 
@@ -143,8 +146,22 @@ export class ValidaContratoComponent implements OnInit {
 
       if (this.contrato?.adeuda) {
 
+        this.monto = res.adeuda;
+
+
         this.generateSignature(this.referencia, this.contrato?.adeuda).then(res => {
           this.signature = res;
+
+          /*let importe = document.getElementById("importe");
+          importe?.setAttribute("value", String(this.monto));
+
+          let referencia = document.getElementById("referencia");
+          referencia?.setAttribute("value", this.referencia);*/
+
+
+
+
+          //this.generateForm();
         });
 
       }
@@ -195,7 +212,7 @@ export class ValidaContratoComponent implements OnInit {
 
     //let key = '5tuJoT8BcTVlBbGzd-0x';  //ejemplo pdf
     let key = 'QvgGUjXOBnmRjc2CvHJ6'
-    let idExpress = 1545;
+    const idExpress = "2328";
     //let message = 'REF0011.001470'; 
 
     let message = referencia + importe + idExpress;
@@ -232,13 +249,13 @@ export class ValidaContratoComponent implements OnInit {
 
   }
 
-  tocheckout(importe: number, contrato: number, nombre: string, email:string) {
+  tocheckout(importe: number, contrato: number, nombre: string, email: string) {
 
     $("#btnGenPago").attr('disabled', true);
 
     this.restService.generateOrder(contrato, importe, nombre, email).subscribe((data) => {
 
-      $('#btnGenPago').attr('disabled',false);
+      $('#btnGenPago').attr('disabled', false);
       this.router.navigate(['/dashboard/checkout', { localizator: data?.localizator, amount: importe, nombre: nombre, contrato: contrato }])
     })
   }
@@ -250,7 +267,7 @@ export class ValidaContratoComponent implements OnInit {
 
 
     const uri = "https://www.adquiramexico.com.mx:443/mExpress/pago/avanzado";
-    const retorno = 'http://localhost:4200/#/respuesta'
+    const retorno = 'https://restserver-smapac.herokuapp.com/api/orders/respuesta.html'
 
     form = document.createElement("form");
     form.method = "post";
@@ -259,7 +276,8 @@ export class ValidaContratoComponent implements OnInit {
     //importe
     importe = document.createElement("input");
     importe.setAttribute("name", "importe");
-    importe.setAttribute("value", this.contrato?.adeuda);
+    //importe.setAttribute("value", this.contrato?.adeuda);
+    importe.setAttribute("value", "1");
 
     //referencia
     referencia = document.createElement("input");
@@ -271,6 +289,8 @@ export class ValidaContratoComponent implements OnInit {
     signature.setAttribute("name", "signature");
     signature.setAttribute("value", this.signature);
 
+    console.log(this.signature);
+
     //urlRetorno
     urlretorno = document.createElement("input");
     urlretorno.setAttribute("name", "urlretorno");
@@ -281,7 +301,7 @@ export class ValidaContratoComponent implements OnInit {
     idexpress = document.createElement("input");
     idexpress.setAttribute("name", "idexpress");
     idexpress.setAttribute("type", "hidden");
-    idexpress.setAttribute("value", "1545");
+    idexpress.setAttribute("value", "2328");
 
     //financiamiento
     financiamiento = document.createElement("input");
@@ -320,5 +340,18 @@ export class ValidaContratoComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('email');
   }
+
+  multipagos() {
+    this.router.navigate(['/dashboard/multipagos']);
+  }
+
+  validar($event:any, form:any){
+    console.log("Entra");
+    console.log(event);
+
+    console.log(form.submi);
+  }
+
+
 
 }

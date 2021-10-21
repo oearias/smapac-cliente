@@ -24,11 +24,13 @@ export class TokenInterceptorService implements HttpInterceptor{
 
     if(req.body?.token){
       this.spinnerService.showCheckoutPago();
+
     }
 
-    /*if(req.body?.password){
+    //Esta condicion muestra el spinner del login
+    if(req.body?.password){
       this.spinnerService.show();
-    }*/
+    }
 
     let tokenReset = localStorage.getItem('io-temp');
 

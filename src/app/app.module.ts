@@ -30,6 +30,7 @@ import { interceptorProviders } from './interceptors'
 import { SpinnerService } from './services/spinner.service';
 import { ResetComponent } from './components/reset/reset.component';
 import { SuccessPasswordComponent } from './components/success-password/success-password.component';
+import { MultipagosComponent } from './components/multipagos/multipagos.component';
 
 
 const routes: Route[] = [
@@ -53,6 +54,7 @@ const routes: Route[] = [
         path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
         children: [
           { path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard] },
+          { path: 'multipagos', component: MultipagosComponent, canActivate: [AuthGuard] },
           { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] }
         ]
       }
@@ -82,7 +84,8 @@ const routes: Route[] = [
     ThankyouComponent,
     DashboardComponent,
     ResetComponent,
-    SuccessPasswordComponent
+    SuccessPasswordComponent,
+    MultipagosComponent
   ],
   imports: [
     BrowserModule,

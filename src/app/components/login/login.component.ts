@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SpinnerService } from '../../services/spinner.service';
+import { LoadingService } from '../../services/loading.service';
 
 declare var $: any;
 
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
     public router: Router,
     private  fb: FormBuilder,
-    private spinnerService: SpinnerService
+    private spinnerService: SpinnerService,
+    private loadingService: LoadingService
     ) { }
 
   ngOnInit(): void {
@@ -65,7 +67,6 @@ export class LoginComponent implements OnInit {
           }
         }
 
-        console.log(res);
         $('#btn-entrar').attr('disabled',false);
 
         
