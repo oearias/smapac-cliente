@@ -20,6 +20,7 @@ export class SpinnerService {
 
     this.isLoading$.next(true);
     this.isLoadingReverse$.next(false);
+    this.isLoadingPago$.next(true);
   }
 
   hide(): void {

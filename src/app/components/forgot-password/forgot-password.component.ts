@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { SpinnerService } from '../../services/spinner.service';
 
 declare var $: any;
 
@@ -11,13 +12,16 @@ declare var $: any;
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  isLoading$ = this.spinnerService.isLoading$;
+
   user = {
     email: ''
   }
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private spinnerService: SpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -27,9 +31,12 @@ export class ForgotPasswordComponent implements OnInit {
 
     let error=''
 
+    $('#btnForgot').attr('disabled',true);
+
+
     this.authService.forgotPassword(this.user.email).subscribe(res => {
 
-      console.log('from client ', res);
+      $('#btnForgot').attr('disabled',false);
 
       if (res.info == 'OK') {
 

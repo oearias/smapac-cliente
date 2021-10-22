@@ -26,7 +26,7 @@
 <div class="container-fluid" style="margin-top: 10px;">
 
     <div class="mt-5">
-        <span class="titleInputBig">Bienvenido: </span>
+        <span class="titleInputBig">Bienvenido(a): </span>
         <span class="titleName">{{user.nombre}}</span>
     </div>
 
@@ -47,14 +47,15 @@
                     </div>
 
                     <div class="btnValidar">
-                        <button type="button" id="btnContrato" (click)="getContrato()" style="font-weight: 600;"
-                            disabled="true" class="btn btn-primary">
+                        <button type="button" id="btnContrato" (click)="getContrato()" 
+                            disabled="true" class="btn btn-primary" style="font-weight: 600;" >
 
                             <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status"
                                 aria-hidden="true"></span>
 
                             <span class="btnLabel"><i *ngIf="isLoadingReverse$ | async"
-                                    class="fas fa-check-circle"></i>&nbsp;&nbsp;Validar</span>
+                                    class="fas fa-search"></i>&nbsp;&nbsp;Buscar</span>
+
 
                         </button>
                     </div>
@@ -74,7 +75,7 @@
     <div class="card-shadow pt-4 pb-3" *ngIf=(contrato?.contrato)>
 
         <div class="row">
-            <div class="col-7" style="margin-left: 20px; ">
+            <div class="col" style="margin-left: 20px; ">
                 <div class="form-group">
                     <!--Estatus: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.estatus}}</span>-->
 
@@ -84,10 +85,12 @@
 
                         <span class="status"><i class="fas fa-check-circle"></i>&nbsp;{{contrato?.estatus}}</span>
                     </div>
+
                     <ng-template #elseBlock>
-                        Estatus: <span class="error" style="margin-left:20px; font-weight:bold; "><i
+                        Estatus: <span class="status" style="margin-left:20px; font-weight:bold; color: #cd3d64;"><i
                                 class="fas fa-times-circle"></i>&nbsp;{{contrato?.estatus}}</span>
                     </ng-template>
+
                 </div>
 
                 <div class="form-group">
@@ -154,7 +157,14 @@
                                 <input type="hidden" name="y" value="25" />
                                 <input type="hidden" name="signature" value="{{signature}}" />
 
-                                <button class="btn btn-success" (click)="form.submit()">Generar pago</button>
+                                <button id="btnGenPago" style="font-weight: 600;" class="btn btn-success" (click)="form.submit()">
+
+                                    <!--<span class="spinner-border spinner-border-sm" role="status"
+                                        aria-hidden="true"></span>-->
+
+                                    <span class="btnLabel">&nbsp;Generar Pago</span>
+
+                                </button>
                             </form>
 
                             <!--

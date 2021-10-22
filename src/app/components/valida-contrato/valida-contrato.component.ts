@@ -17,6 +17,7 @@ declare var $: any;
 })
 export class ValidaContratoComponent implements OnInit {
 
+
   createFormGroup() {
     return new FormGroup({
       name: new FormControl(['', [Validators.required]]),
@@ -44,7 +45,7 @@ export class ValidaContratoComponent implements OnInit {
   isLoading$ = this.spinnerService.isLoading$;
   isLoadingReverse$ = this.spinnerService.isLoadingReverse$;
 
-  isLoadingPago$ = this.spinnerService.isLoadingPago$;
+  is$ = this.spinnerService.isLoadingPago$
 
   /*isLoading$ = this.loadingService.isLoading$;
   isLoadingReverse$ = this.loadingService.isLoadingReverse$*/
@@ -114,6 +115,14 @@ export class ValidaContratoComponent implements OnInit {
         $("#btnContrato").attr('disabled', true);
       }
     })
+
+
+    $('#form').submit(function() {
+      // DO STUFF...
+      alert("hola");
+      return false; // return false to cancel form action
+  });
+
 
 
 
@@ -345,12 +354,7 @@ export class ValidaContratoComponent implements OnInit {
     this.router.navigate(['/dashboard/multipagos']);
   }
 
-  validar($event:any, form:any){
-    console.log("Entra");
-    console.log(event);
-
-    console.log(form.submi);
-  }
+  
 
 
 

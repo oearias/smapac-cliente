@@ -11,14 +11,15 @@
 
       <div class="form-group">
         <div>
-          <span class="titleInput">Correo Electrónico</span>
+          <span class="titleInput">Correo electrónico</span>
         </div>
         <input class="form-control form-control-lg" type="mail" [(ngModel)]="user.email" name="email" id="email">
       </div>
 
       <div class="form-group">
         <span class="titleInput">Contraseña</span>
-        <input type="password" class="form-control form-control-lg" [(ngModel)]="user.password" name="password" id="password">
+        <input type="password" class="form-control form-control-lg" [(ngModel)]="user.password" name="password"
+          id="password">
       </div>
 
       <div class="form-group">
@@ -26,7 +27,12 @@
         <input type="password" class="form-control form-control-lg" id="passAux">
       </div>
 
-      <button type="submit" class="btn btn-primary form-control mb-2 " style="font-weight: 600;">Registrarse</button>
+      <button id="btnRegister" type="submit" class="btn btn-primary form-control mb-2 " style="font-weight: 600;">
+
+        <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status" aria-hidden="true">
+        </span>
+        Registrarse
+      </button>
 
       <div class="error" id="errorMessage" style="color: crimson;"></div>
 

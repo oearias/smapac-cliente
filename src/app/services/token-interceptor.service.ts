@@ -24,11 +24,10 @@ export class TokenInterceptorService implements HttpInterceptor{
 
     if(req.body?.token){
       this.spinnerService.showCheckoutPago();
-
     }
 
     //Esta condicion muestra el spinner del login
-    if(req.body?.password){
+    if(req.body?.password || req.body?.email){
       this.spinnerService.show();
     }
 
