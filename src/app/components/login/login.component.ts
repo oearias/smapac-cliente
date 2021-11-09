@@ -68,8 +68,6 @@ export class LoginComponent implements OnInit {
         }
 
         $('#btn-entrar').attr('disabled',false);
-
-        
         
       }, err => {
   

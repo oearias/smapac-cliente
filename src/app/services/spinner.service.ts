@@ -10,6 +10,8 @@ export class SpinnerService {
   isLoading$ = new Subject<boolean>();
   isLoadingReverse$ = new Subject<boolean>();
 
+  isLoadingRecibo$ = new Subject<boolean>();
+
   isLoadingPago$ = new Subject<boolean>();
 
   isLoadingCheckout$ = new Subject<boolean>();
@@ -43,6 +45,14 @@ export class SpinnerService {
 
   hideCheckoutPago(): void{
     this.isLoadingCheckout$.next(false);
+  }
+
+  showRecibo(): void{
+    this.isLoadingRecibo$.next(true);
+  }
+
+  hideRecibo():void{
+    this.isLoadingRecibo$.next(false);
   }
 
 }

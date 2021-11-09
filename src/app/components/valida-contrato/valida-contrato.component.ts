@@ -7,6 +7,7 @@ import { RestService } from '../../services/rest.service';
 import { SpinnerService } from '../../services/spinner.service';
 import { LoadingService } from '../../services/loading.service';
 import { NgForm } from '@angular/forms';
+import { ReciboService } from '../../services/recibo.service';
 
 declare var $: any;
 
@@ -35,6 +36,10 @@ export class ValidaContratoComponent implements OnInit {
   monto!: number;
   idexpress= "2328";
 
+  //mes -1 para que sea el exacto
+  fechaVencimiento !: any;
+  vencido : boolean = false;
+
   infoMessage: String = "";
 
   user = {
@@ -44,6 +49,8 @@ export class ValidaContratoComponent implements OnInit {
 
   isLoading$ = this.spinnerService.isLoading$;
   isLoadingReverse$ = this.spinnerService.isLoadingReverse$;
+
+  isLoadingRecibo$ = this.spinnerService.isLoadingRecibo$;
 
   is$ = this.spinnerService.isLoadingPago$
 
@@ -58,7 +65,8 @@ export class ValidaContratoComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     public spinnerService: SpinnerService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private reciboService: ReciboService
   ) {
     this.form = this.createFormGroup();
 
@@ -76,6 +84,8 @@ export class ValidaContratoComponent implements OnInit {
     })
 
     this.getUser();
+
+    this.validaFecha();
 
 
 
@@ -117,15 +127,6 @@ export class ValidaContratoComponent implements OnInit {
     })
 
 
-    $('#form').submit(function() {
-      // DO STUFF...
-      alert("hola");
-      return false; // return false to cancel form action
-  });
-
-
-
-
   }
 
   getContratos() {
@@ -156,7 +157,6 @@ export class ValidaContratoComponent implements OnInit {
       if (this.contrato?.adeuda) {
 
         this.monto = res.adeuda;
-
 
         this.generateSignature(this.referencia, this.contrato?.adeuda).then(res => {
           this.signature = res;
@@ -354,8 +354,93 @@ export class ValidaContratoComponent implements OnInit {
     this.router.navigate(['/dashboard/multipagos']);
   }
 
-  
+  imprimeRecibo(){
 
+    this.reciboService.downloadRecibo(this.contrato?.contrato);
+    
+  }
+
+  validaFecha(){
+
+    let fechaHoy = new Date();
+    let diaHoy = fechaHoy.getDay()
+    let mes;
+    
+    mes = this.devuelveMes(fechaHoy.getMonth());
+
+    if(diaHoy < 15 ){
+
+      mes = mes! -1;
+      this.fechaVencimiento = new Date(fechaHoy.getFullYear(), mes, 15);
+
+    }else{
+      this.fechaVencimiento = new Date(fechaHoy.getFullYear(), mes!, 15);
+    }
+
+    if(fechaHoy > this.fechaVencimiento){
+      this.vencido = false;
+    }else{
+      this.vencido = true;
+    }
+
+    const options = {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit'
+    }
+    
+    this.fechaVencimiento = this.fechaVencimiento.toLocaleString('es-MX',options);
+   //this.fechaVencimiento = this.fechaVencimiento.getDate() +"/"+("0" + this.fechaVencimiento.getMonth()).slice(-2) +"/"+ this.fechaVencimiento.getFullYear();
+
+    
+  }
+
+  devuelveMes(mes: number){
+
+    let aux;
+
+    switch(mes){
+      case 0: aux = 1;
+      break;
+
+      case 1: aux = 2;
+      break;
+
+      case 2: aux = 3;
+      break;
+
+      case 3: aux = 4;
+      break;
+
+      case 4: aux = 5;
+      break;
+
+      case 5: aux = 6;
+      break;
+
+      case 6: aux = 7;
+      break;
+
+      case 7: aux = 8;
+      break;
+
+      case 8: aux = 9;
+      break;
+
+      case 9: aux = 10;
+      break;
+
+      case 10: aux = 11;
+      break;
+
+      case 11: aux = 12;
+      break;
+
+      default: 0;
+    }
+
+    return aux;
+  }
 
 
 }

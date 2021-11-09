@@ -31,13 +31,17 @@ export class LoadingService implements HttpInterceptor{
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-    console.log(req);
 
     //Esta condición activa el spinner del button validar contratos unicamente
     if(!req.body){
       this.spinnerService.show();
+
     }else{
       this.spinnerService.showPago();
+    }
+
+    if(req.body?.flag){
+      this.spinnerService.showRecibo();
     }
     
     //this.show();
@@ -45,6 +49,7 @@ export class LoadingService implements HttpInterceptor{
     return next.handle(req).pipe(
         finalize(() => {
           this.spinnerService.hide()
+          this.spinnerService.hideRecibo();
           //this.hide();
         }));
 }

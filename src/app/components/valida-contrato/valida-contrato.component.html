@@ -1,29 +1,4 @@
-<!--<nav class="navbar navbar-expand-md navbar-light bg-light">
-    <img src="../../../assets/img/smapac-logo-300x190.png" style="height: 60px;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav mr-auto">
-        </ul>
-        <ul class="navbar-nav">
-
-            <li class="nav-item">
-                <a class="nav-link" (click)="logOut()" [routerLink]="['/']"><i class="fas fa-user"></i> Cerrar
-                    sesión</a>
-            </li>
-
-            <li class="nav-item" style="width: 10px;">
-            </li>
-
-        </ul>
-
-    </div>
-</nav>-->
-
-
-
-<div class="container-fluid" style="margin-top: 10px;">
+<div class="container-fluid" style="margin-top: 10px; z-index: 1; position: absolute;">
 
     <div class="mt-5">
         <span class="titleInputBig">Bienvenido(a): </span>
@@ -33,7 +8,9 @@
 
     <div class="pt-4 pb-3">
         <div class="form-group mb-2">
-            <span class="titleInput">Ingrese el numero de contrato: </span>
+            <span style="font-size: 1em; font-weight: 600; color: #cd3d64;">*</span>
+
+            <span style="font-size: 1em; "> Favor de llenar el campo para la consulta</span>
         </div>
 
         <div class="row">
@@ -43,12 +20,12 @@
 
 
                     <div class="inputContrato">
-                        <input class="form-control" id=contratoId type="number" min="0">
+                        <input class="form-control" placeholder="Número de contrato" id=contratoId type="number" min="0">
                     </div>
 
                     <div class="btnValidar">
-                        <button type="button" id="btnContrato" (click)="getContrato()" 
-                            disabled="true" class="btn btn-primary" style="font-weight: 600;" >
+                        <button type="button" id="btnContrato" (click)="getContrato()" disabled="true"
+                            class="btn btn-primary" style="font-weight: 600;">
 
                             <span *ngIf="isLoading$ | async" class="spinner-border spinner-border-sm" role="status"
                                 aria-hidden="true"></span>
@@ -56,10 +33,8 @@
                             <span class="btnLabel"><i *ngIf="isLoadingReverse$ | async"
                                     class="fas fa-search"></i>&nbsp;&nbsp;Buscar</span>
 
-
                         </button>
                     </div>
-
 
                 </div>
             </div>
@@ -67,14 +42,12 @@
         </div>
 
 
-
-
-
     </div>
 
     <div class="card-shadow pt-4 pb-3" *ngIf=(contrato?.contrato)>
 
         <div class="row">
+
             <div class="col" style="margin-left: 20px; ">
                 <div class="form-group">
                     <!--Estatus: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.estatus}}</span>-->
@@ -115,9 +88,42 @@
                 </div>
 
                 <div class="form-group">
+                    <span class="titleInput">Mes Facturado:</span>
+                    <span class="res">Octubre 2021</span>
+                </div>
+
+                <div class="form-group">
+                    <span class="titleInput">Fecha Vencimiento:</span>
+                    <span *ngIf="!vencido; else noVencido" class="res">
+                        {{fechaVencimiento}}
+                    </span>
+                    <ng-template #noVencido>
+                        <span class="res" style="color: #cd3d64;">
+                            {{fechaVencimiento}}
+                        </span>
+                    </ng-template>
+                </div>
+
+                <div class="form-group">
                     <span class="titleInput">Adeudo Total:</span>
                     <span class="adeudo">${{contrato?.adeuda
                         | number:'1.2-5'}}</span>
+                </div>
+
+                <div class="form-group">
+                    <span class="titleInput">Recibo Dígital: </span>
+
+                    <span class="adeudo"><a role="button" (click)="imprimeRecibo()">Descargar <i
+                                class="fas fa-file-invoice"></i></a></span>
+
+                    <!--<button class="btn btn-danger ml-5" (click)="imprimeRecibo()">
+                        <span style="color: white; font-weight: 600;">
+                            <i class="fas fa-file-invoice"></i>&nbsp;
+                        </span>
+                    </button>-->
+
+                    <br><br>
+
                 </div>
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
@@ -157,42 +163,14 @@
                                 <input type="hidden" name="y" value="25" />
                                 <input type="hidden" name="signature" value="{{signature}}" />
 
-                                <button id="btnGenPago" style="font-weight: 600;" class="btn btn-success" (click)="form.submit()">
-
-                                    <!--<span class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true"></span>-->
+                                <button id="btnGenPago" style="font-weight: 600;" class="btn btn-success"
+                                    (click)="form.submit()">
 
                                     <span class="btnLabel">&nbsp;Generar Pago</span>
 
                                 </button>
+
                             </form>
-
-                            <!--
-                            <form #form action="https://www.adquiramexico.com.mx:443/mExpress/pago/avanzado" method="post" >
-
-                                
-                            <input name="importe" value="3" />
-                            <input type="hidden" name="referencia" value="1" />
-                            <input type="hidden" name="urlretorno"
-                                value="https://restserver-smapac.herokuapp.com/api/orders/respuesta.html" />
-                            <input type="hidden" name="idexpress" value="2328" />
-                            <input type="hidden" name="financiamiento" value="0" />
-                            <input type="hidden" name="plazos" value="" />
-                            <input type="hidden" name="mediospago" value="110000" />
-                            <input type="hidden" name="signature"
-                                value="7584e1f4180cd2151c316e1ede042cdfa33282814f48237222dbeda416d4495d" />
-                            <input type="image" (click)="validar($event, this);"
-                                src="https://s3.amazonaws.com/prod.adquira.mp2.repo.files/verticales/bexpress/resources/img/icon/paybutton_4.png" />
-                            </form>
-
-
-                        -->
-
-
-
-
-
-
 
 
                         </div>
@@ -203,7 +181,7 @@
                 </div>
                 <ng-template #elseBlock33>
                     <div class="m-3">
-                        No es posible realizar el pago por este medio, debe presentarse en las instaciones del
+                        No es posible realizar el pago por este medio, debe presentarse en las instalaciones del
                         <span style="color: #3c4257; font-weight: bolder;">SMAPAC</span> para el pago de
                         <span class="error" style="font-weight:bolder; ">Reconexión</span> correspondiente.
                     </div>
@@ -226,5 +204,10 @@
 
     </div>
 
-
 </div>
+
+<div *ngIf="isLoadingRecibo$ | async" class="spinner" style="display: flex; justify-content: center; align-items: center;">
+    <div class="lds-hourglass"></div>
+  
+  </div>
+
