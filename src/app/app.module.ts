@@ -31,6 +31,7 @@ import { SpinnerService } from './services/spinner.service';
 import { ResetComponent } from './components/reset/reset.component';
 import { SuccessPasswordComponent } from './components/success-password/success-password.component';
 import { MultipagosComponent } from './components/multipagos/multipagos.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 
 const routes: Route[] = [
@@ -55,7 +56,8 @@ const routes: Route[] = [
         children: [
           { path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard] },
           { path: 'multipagos', component: MultipagosComponent, canActivate: [AuthGuard] },
-          { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] }
+          { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
+          { path: 'myProfile', component: ProfileComponent, canActivate: [AuthGuard] },
         ]
       }
     ]
@@ -85,7 +87,8 @@ const routes: Route[] = [
     DashboardComponent,
     ResetComponent,
     SuccessPasswordComponent,
-    MultipagosComponent
+    MultipagosComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

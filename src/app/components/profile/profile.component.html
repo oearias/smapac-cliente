@@ -1,0 +1,64 @@
+<div class="container-fluid" style="margin-top: 10px; margin-left:5px; z-index: 1; position: absolute;">
+
+    <div class="mt-5">
+
+        <div>
+            <table style="width: 100%;">
+                <tr>
+                    <td>
+                        <h2>
+                            Perfil
+                        </h2>
+                    </td>
+                    <td>
+                        <button id="btnCancel" style="float: right; font-weight: 600;" (click)="cancel()"
+                            class="btn btn-outline-dark">
+                            Cancelar
+                        </button>
+                    </td>
+                    <td style="width: 130px;">
+
+                        <button id="btnSave" style="float: right; font-weight: 600;" class="btn btn-success">
+                            Guardar
+                            <i class="far fa-save"></i>
+                        </button>
+
+                        <button id="btnEdit" style="float: right; font-weight: 600;" (click)="editUser()"
+                            class="btn btn-outline-primary">
+                            Editar
+                            <i class="far fa-edit"></i>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <hr>
+
+
+        <form action="">
+
+            <table style="width: 100%;">
+                <tr style="height: 100px;">
+                    <td>Correo:</td>
+                    <td style="font-size: 22px; ">
+                        <div id="emailDiv">
+                            <span id="emailRes">{{user?.email}}</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nombre:</td>
+                    <td style="font-size: 22px; font-weight: 600">
+                        <div id="nombreDiv" style="width: 80%;">
+                            <span id="nombreRes">{{user?.nombre}}</span>
+                            <input id="inputNombre" type="text" class="form-control">
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+
+</div>

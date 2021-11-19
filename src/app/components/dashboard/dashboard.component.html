@@ -23,10 +23,25 @@
                     <i class="fas fa-tint"></i> Reportes de Fugas</a>
             </li>-->
 
+            <!--<li class="nav-item">
+                <a class="nav-link" [routerLink]="['./valida']">
+                    <i class="fas fa-coins"></i>
+                    Paga en línea
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['./myProfile']">
+                    <i class="fas fa-user"></i> 
+                    Mi perfil
+                </a>
+            </li>-->
+
             <li class="nav-item">
                 <a class="nav-link" (click)="logOut()" [routerLink]="['/']">
-                    <i class="fas fa-user"></i> Cerrar
-                    sesión</a>
+                    <i class="fas fa-sign-out-alt"></i>
+                    Cerrar sesión
+                </a>
             </li>
 
             <li class="nav-item" style="width: 10px;">
@@ -37,5 +52,12 @@
     </div>
 </nav>
 
-
-<router-outlet></router-outlet>
+<div style="margin-top: 10px;">
+    <div class="mt-5 ml-3">
+        <span class="titleInputBig">Bienvenido(a): </span>
+        <span class="titleName">{{user.nombre}}</span>
+    </div>
+    
+    
+    <router-outlet></router-outlet>
+</div>
