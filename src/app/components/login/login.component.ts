@@ -53,6 +53,9 @@ export class LoginComponent implements OnInit {
 
       $('#btn-entrar').attr('disabled',true);
 
+      //Eliminamos espacios en blanco que puedan darse en el email
+      this.form.value.email = this.form.value.email.trim();
+
       this.authService.login(this.form.value).subscribe(res => {
 
         if(res.token){
@@ -70,8 +73,6 @@ export class LoginComponent implements OnInit {
         $('#btn-entrar').attr('disabled',false);
         
       }, err => {
-  
-        
   
         if(err.error){
   
@@ -93,9 +94,11 @@ export class LoginComponent implements OnInit {
       $('#btn-entrar').attr('disabled',false);
     }
 
-    
 
+  }
 
+  loginGoogle(){
+    console.log('Cupertino');
   }
 
 }

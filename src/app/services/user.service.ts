@@ -19,6 +19,11 @@ export class UserService {
   }
 
   createUser(user: Usuario){
-    return this.http.post<any>(this.URL_API+'usuarios/', user)
+    return this.http.post<any>(this.URL_API+'usuarios/', user);
+  }
+
+  updateUser(user: Usuario){
+
+    return this.http.put<any>(this.URL_API+'usuarios/'+user.id, user);
   }
 }

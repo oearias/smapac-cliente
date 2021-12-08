@@ -43,6 +43,10 @@ export class LoadingService implements HttpInterceptor{
     if(req.body?.flag){
       this.spinnerService.showRecibo();
     }
+
+    if(req.body?.nombre){
+      this.spinnerService.showName();
+    }
     
     //this.show();
 
@@ -50,6 +54,7 @@ export class LoadingService implements HttpInterceptor{
         finalize(() => {
           this.spinnerService.hide()
           this.spinnerService.hideRecibo();
+          this.spinnerService.hideName();
           //this.hide();
         }));
 }

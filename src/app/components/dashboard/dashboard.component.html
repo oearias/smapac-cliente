@@ -23,26 +23,47 @@
                     <i class="fas fa-tint"></i> Reportes de Fugas</a>
             </li>-->
 
-            <!--<li class="nav-item">
+            
+
+            <li class="nav-item">
                 <a class="nav-link" [routerLink]="['./valida']">
                     <i class="fas fa-coins"></i>
                     Paga en línea
                 </a>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item dropdown">
+
+                <a class="nav-item nav-link dropdown-toggle mr-md-2" 
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" href="#">
+                    <i class="fas fa-user"></i>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    
+                    <a class="dropdown-item" [routerLink]="['./myProfile']">Mi perfil</a>
+
+                    <div class="dropdown-divider"></div>
+                    
+                    <a class="dropdown-item" [routerLink]="['/']" 
+                    (click)="logOut()">Cerrar sesión</a>
+                </div>
+
+            </li>
+
+            <!--<li class="nav-item">
                 <a class="nav-link" [routerLink]="['./myProfile']">
                     <i class="fas fa-user"></i> 
                     Mi perfil
                 </a>
             </li>-->
 
-            <li class="nav-item">
+            <!--<li class="nav-item">
                 <a class="nav-link" (click)="logOut()" [routerLink]="['/']">
                     <i class="fas fa-sign-out-alt"></i>
                     Cerrar sesión
                 </a>
-            </li>
+            </li>-->
 
             <li class="nav-item" style="width: 10px;">
             </li>
@@ -55,9 +76,14 @@
 <div style="margin-top: 10px;">
     <div class="mt-5 ml-3">
         <span class="titleInputBig">Bienvenido(a): </span>
-        <span class="titleName">{{user.nombre}}</span>
+        <span class="titleName">
+            
+            <!--{user.nombre}}-->
+            {{updateNombreService.nombreUsuario}}
+
+        </span>
     </div>
-    
     
     <router-outlet></router-outlet>
 </div>
+

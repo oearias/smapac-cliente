@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UpdateNombreService } from '../../services/update-nombre.service';
+import { SpinnerService } from '../../services/spinner.service';
 
 declare var $: any;
 
@@ -11,47 +14,74 @@ declare var $: any;
 export class ProfileComponent implements OnInit {
 
   user = {
+    uid: '',
     nombre: '',
     email: ''
   }
 
+  userForm: FormGroup;
 
+  isLoadingName$ = this.spinnerService.isLoadingName$;
+  //isLoadingRecibo$ = this.spinnerService.isLoadingRecibo$;
 
   constructor(
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    public updateNombreService: UpdateNombreService,
+    private spinnerService: SpinnerService,
+    builder: FormBuilder
+  ) {
+    this.userForm = builder.group({
+      id: [''],
+      nombre: ['', [Validators.required]],
+      email: ['']
+    })
+
+    this.userForm.setValue({
+      id: localStorage.getItem('id') || '',
+      nombre: '',
+      email: localStorage.getItem('email') || ''
+    })
+  }
 
   ngOnInit(): void {
+
     this.getUser();
 
-    $('#inputNombre').hide(); 
+    $('#inputNombre').hide();
     $('#btnSave').hide();
     $('#btnCancel').hide();
 
-    $('#inputNombre').keyup((event: any) => {
-      console.log(event);
+
+    $('#inputNombre').keyup(() => {
+
+      let inputNombre = $('#inputNombre').val();
+
+
+      if (inputNombre != this.user.nombre) {
+        $('#btnSave').attr('disabled', false);
+      } else {
+        $('#btnSave').attr('disabled', true);
+      }
+
     });
 
   }
 
-  getUser(){
+  getUser() {
     if ((this.user.email == '') || (!this.user.email)) {
 
+      this.user.uid = localStorage.getItem('uid') || '';
       this.user.email = localStorage.getItem('email') || '';
       this.user.nombre = localStorage.getItem('nombre') || '';
 
     }
 
-    /*this.userService.getUser(this.user.email).subscribe(res => {
-      this.user.nombre = res.nombre
-    })*/
-
   }
 
-  editUser(){
+  editUser() {
 
-    $('#inputNombre').val(this.user.nombre)
-    $('#inputNombre').show();    
+    $('#inputNombre').val(this.updateNombreService.nombreUsuario)
+    $('#inputNombre').show();
 
     $('#btnEdit').hide();
     $('#nombreRes').hide();
@@ -63,7 +93,26 @@ export class ProfileComponent implements OnInit {
 
   }
 
-  cancel(){
+  updateUser() {
+
+    this.userService.updateUser(this.userForm.value).subscribe(res => {
+      console.log(res);
+      if (res.msg) {
+        this.updateNombreService.nombreUsuario = this.userForm.value.nombre;
+
+        $('#nombreRes').show();
+        $('#btnEdit').show();
+
+        $('#inputNombre').hide();
+        $('#btnSave').hide();
+        $('#btnCancel').hide();
+      }
+    })
+
+
+  }
+
+  cancel() {
     $('#btnSave').hide();
     $('#btnCancel').hide();
     $('#inputNombre').hide();

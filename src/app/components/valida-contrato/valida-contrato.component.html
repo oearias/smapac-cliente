@@ -122,11 +122,11 @@
                     <span class="adeudo"><a role="button" (click)="imprimeRecibo()">Descargar <i
                                 class="fas fa-file-invoice"></i></a></span>
 
-                    
-                                <br><br>
+
+                    <br><br>
                 </div>
 
-                
+
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
                 <!--<button class="btn btn-success">Asignar</button>-->
@@ -183,7 +183,8 @@
                 </div>
                 <ng-template #elseBlock33>
                     <div class="m-3">
-                        No es posible realizar el pago ni descargar el recibo por este medio, debe presentarse en las instalaciones del
+                        No es posible realizar el pago ni descargar el recibo por este medio, debe presentarse en las
+                        instalaciones del
                         <span style="color: #3c4257; font-weight: bolder;">SMAPAC</span> para el pago de
                         <span class="error" style="font-weight:bolder; ">Reconexión</span> correspondiente.
                     </div>
@@ -208,8 +209,40 @@
 
 </div>
 
-<div *ngIf="isLoadingRecibo$ | async" class="spinner"
+<!--<div *ngIf="isLoadingRecibo$ | async" class="spinner"
     style="display: flex; justify-content: center; align-items: center;">
+    
     <div class="lds-hourglass"></div>
 
+</div>-->
+
+<div *ngIf="isLoadingRecibo$ | async" class="layer">
+    
+    <div class="wrap">
+        <div class="drop-outer">
+          <svg class="drop" viewBox="0 0 40 40" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="20"/>
+          </svg>
+        </div>
+        <div class="ripple ripple-1">
+            <svg class="ripple-svg" viewBox="0 0 60 60" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="24"/>
+            </svg>
+        </div>
+        <div class="ripple ripple-2">
+            <svg class="ripple-svg" viewBox="0 0 60 60" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="24"/>
+            </svg>
+        </div>
+        <div class="ripple ripple-3">
+            <svg class="ripple-svg" viewBox="0 0 60 60" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="24"/>
+            </svg>
+        </div>
+      </div>
 </div>
+  

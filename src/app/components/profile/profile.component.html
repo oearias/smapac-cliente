@@ -18,7 +18,8 @@
                     </td>
                     <td style="width: 130px;">
 
-                        <button id="btnSave" style="float: right; font-weight: 600;" class="btn btn-success">
+                        <button id="btnSave" style="float: right; font-weight: 600;" (click)="updateUser()"
+                            class="btn btn-success">
                             Guardar
                             <i class="far fa-save"></i>
                         </button>
@@ -40,25 +41,37 @@
 
             <table style="width: 100%;">
                 <tr style="height: 100px;">
-                    <td>Correo:</td>
+                    <td style="width: 200px">Correo:</td>
                     <td style="font-size: 22px; ">
                         <div id="emailDiv">
+
                             <span id="emailRes">{{user?.email}}</span>
                         </div>
                     </td>
                 </tr>
-                <tr>
+                <tr style="height: 100px;">
                     <td>Nombre:</td>
                     <td style="font-size: 22px; font-weight: 600">
-                        <div id="nombreDiv" style="width: 80%;">
-                            <span id="nombreRes">{{user?.nombre}}</span>
-                            <input id="inputNombre" type="text" class="form-control">
-                        </div>
+                        <form [formGroup]="userForm">
+                            <div id="nombreDiv" style="width: 80%;">
+                                <span id="nombreRes">{{updateNombreService.nombreUsuario}}</span>
+                                <input formControlName="id" id="uidInput" type="hidden">
+                                <input formControlName="email" type="hidden">
+                                <input formControlName="nombre" id="inputNombre" type="text" class="form-control">
+                            </div>
+                        </form>
                     </td>
                 </tr>
             </table>
         </form>
 
     </div>
+
+</div>
+
+<div *ngIf="isLoadingName$ | async" class="spinner"
+    style="display: flex; justify-content: center; align-items: center;">
+    
+    <div class="lds-hourglass"></div>
 
 </div>

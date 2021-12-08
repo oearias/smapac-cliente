@@ -5,7 +5,7 @@
 
 .login{
     width: 400px;
-    height: 450px;
+    height: 550px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -63,3 +63,28 @@
 .hijo a{
     text-decoration: none;
 }
+
+.fa-google {
+    background: conic-gradient(from -45deg, #ea4335 110deg, #4285f4 90deg 180deg, #34a853 180deg 270deg, #fbbc05 270deg) 73% 55%/150% 150% no-repeat;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .google{
+      color: #4f5052;
+  }
+
+  .btn-outline-danger  {
+    font-weight: 600;
+    color: #4f5052;
+    border: 1px solid #666666;
+    
+}
+
+  .btn-outline-danger:hover {
+      font-weight: 600;
+      color: azure;
+      border: none;
+  }

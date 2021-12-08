@@ -16,6 +16,7 @@ export class RegisterComponent implements OnInit {
   isLoading$ = this.spinnerService.isLoading$;
 
   user = {
+    id: '',
     nombre: '',
     email: '',
     password: ''
