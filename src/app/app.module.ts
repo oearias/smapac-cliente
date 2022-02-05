@@ -32,6 +32,7 @@ import { ResetComponent } from './components/reset/reset.component';
 import { SuccessPasswordComponent } from './components/success-password/success-password.component';
 import { MultipagosComponent } from './components/multipagos/multipagos.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { CardPagoComponent } from './components/card-pago/card-pago.component';
 
 
 const routes: Route[] = [
@@ -51,6 +52,7 @@ const routes: Route[] = [
       { path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard] },
       { path: 'valida', component: ValidaContratoComponent, canActivate: [AuthGuard] },
       { path: 'thankyou', component: ThankyouComponent, canActivate: [AuthGuard] },
+      { path: 'pago-movil', component: CardPagoComponent},
       {
         path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard],
         children: [
@@ -88,7 +90,8 @@ const routes: Route[] = [
     ResetComponent,
     SuccessPasswordComponent,
     MultipagosComponent,
-    ProfileComponent
+    ProfileComponent,
+    CardPagoComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { ResContrato, Contrato } from '../models/contrato';
 import { environment } from '../../environments/environment';
+import { EmailValidator } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +22,5 @@ export class ContratoService {
   getContrato( id:number ){
     return this.http.get<Contrato>(this.URL_API+'contratos/'+id);
   }
+  
 }

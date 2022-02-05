@@ -90,12 +90,12 @@
 
                 <div class="form-group">
                     <span class="titleInput">Mes facturado:</span>
-                    <span class="res">Noviembre 2021</span>
+                    <span class="res">Enero 2022</span>
                 </div>
 
                 <div class="form-group">
                     <span class="titleInput">Fecha de vencimiento:</span>
-                    <span class="res">15/12/2021</span>
+                    <span class="res">15/02/2022</span>
                 </div>
 
                 <!--<div class="form-group">
@@ -119,37 +119,24 @@
                 <div *ngIf="contrato.estatus== 'Activo' " class="form-group">
                     <span class="titleInput">Recibo Dígital: </span>
 
-                    <span class="adeudo"><a role="button" (click)="imprimeRecibo()">Descargar <i
-                                class="fas fa-file-invoice"></i></a></span>
-
-
+                    <span class="adeudo">
+                        <a role="button" (click)="imprimeRecibo()">Descargar 
+                            <i class="fas fa-file-invoice"></i>
+                        </a>
+                    </span>
                     <br><br>
                 </div>
 
 
             </div>
             <div style="display: flex; justify-content: center; align-items: center;">
-                <!--<button class="btn btn-success">Asignar</button>-->
 
                 <div *ngIf="contrato.estatus == 'Activo' ; else elseBlock33">
-
 
                     <div *ngIf="contrato.adeuda <= 0 ; else conAdeudo">&nbsp;</div>
                     <ng-template #conAdeudo>
 
                         <div class="hijo">
-
-
-                            <!--<button id="btnGenPago" class="btn btn-success" style="font-weight: 600;"
-                                (click)="tocheckout(contrato.adeuda, contrato.contrato, user.nombre, user.email)">
-
-                                <span *ngIf="isLoadingPago$ | async" class="spinner-border spinner-border-sm" role="status"
-                                aria-hidden="true"></span>
-
-                                Generar Pago
-                            
-                            </button>-->
-
 
                             <form #form action="https://www.adquiramexico.com.mx:443/mExpress/pago/avanzado"
                                 method="post">
@@ -173,7 +160,6 @@
                                 </button>
 
                             </form>
-
 
                         </div>
                     </ng-template>

@@ -6,8 +6,8 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 import { RestService } from '../../services/rest.service';
 import { SpinnerService } from '../../services/spinner.service';
 import { LoadingService } from '../../services/loading.service';
-import { NgForm } from '@angular/forms';
 import { ReciboService } from '../../services/recibo.service';
+import { environment } from 'src/environments/environment';
 
 declare var $: any;
 
@@ -35,6 +35,7 @@ export class ValidaContratoComponent implements OnInit {
   signature: any;
   monto!: number;
   idexpress= "2328";
+  //idexpress = environment.idExpress;
 
   //mes -1 para que sea el exacto
   fechaVencimiento !: any;
@@ -63,7 +64,6 @@ export class ValidaContratoComponent implements OnInit {
     private restService: RestService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder,
     public spinnerService: SpinnerService,
     public loadingService: LoadingService,
     private reciboService: ReciboService
@@ -81,13 +81,9 @@ export class ValidaContratoComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.user.email = params.email
 
-    })
+    });
 
     this.getUser();
-
-    this.validaFecha();
-
-
 
     $("#contratoId").keyup((event: any) => {
 
@@ -98,7 +94,6 @@ export class ValidaContratoComponent implements OnInit {
       } else {
         $("#btnContrato").attr('disabled', true);
       }
-
 
       if (event.keyCode === 13) {
 
