@@ -190,7 +190,7 @@ a {
     }
 }
 
-@media (min-width: 1270px) and (max-width: 1800px){
+@media (min-width: 1270px) and (max-width: 2200px){
     .card-shadow{
         width: 63%;
     }
@@ -298,7 +298,7 @@ animation: lds-hourglass 1.2s infinite;
 }
 }
 
-  /**/
+  /*Animación gotita loading-recibo*/
 
   .layer{
       position: fixed;

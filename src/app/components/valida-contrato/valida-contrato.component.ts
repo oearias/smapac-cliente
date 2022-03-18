@@ -31,6 +31,7 @@ export class ValidaContratoComponent implements OnInit {
 
   contratos: any[] = [];
   contrato: any;
+  periodo: any;
   referencia: any;
   signature: any;
   monto!: number;
@@ -80,10 +81,10 @@ export class ValidaContratoComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.user.email = params.email
-
     });
 
     this.getUser();
+    this.getPeriodo();
 
     $("#contratoId").keyup((event: any) => {
 
@@ -162,9 +163,6 @@ export class ValidaContratoComponent implements OnInit {
           let referencia = document.getElementById("referencia");
           referencia?.setAttribute("value", this.referencia);*/
 
-
-
-
           //this.generateForm();
         });
 
@@ -175,6 +173,15 @@ export class ValidaContratoComponent implements OnInit {
       }
 
     })
+  }
+
+  //
+  getPeriodo(){
+    this.contratoService.getPeriodo().subscribe(res => {
+      this.periodo = res;
+
+      console.log(res);
+    });
   }
 
   generateReferencia(contrato: number) {
