@@ -1,11 +1,5 @@
 <div class="container-fluid" style="margin-top: 10px; z-index: 1; position: absolute;">
 
-    <!--<div class="mt-5">
-        <span class="titleInputBig">Bienvenido(a): </span>
-        <span class="titleName">{{user.nombre}}</span>
-    </div>-->
-
-
     <div class="pt-4 pb-3">
         <div class="form-group mb-2">
             <span style="font-size: 1em; font-weight: 600; color: #cd3d64;">*</span>
@@ -51,7 +45,6 @@
 
             <div class="col" style="margin-left: 20px; ">
                 <div class="form-group">
-                    <!--Estatus: <span style="font-weight: bold; margin-left: 20px;">{{contrato?.estatus}}</span>-->
 
                     <div *ngIf="contrato.estatus == 'Activo'; else elseBlock">
 
@@ -84,8 +77,8 @@
                 </div>
 
                 <div class="form-group">
-                    <span class="titleInput">Tarifa:</span>
-                    <span class="res">{{contrato?.tarifa}}</span>
+                    <span class="titleInput">Giro:</span>
+                    <span class="res">{{contrato?.giro}}</span>
                 </div>
 
                 <div class="form-group">
@@ -163,8 +156,6 @@
 
                         </div>
                     </ng-template>
-
-
 
                 </div>
                 <ng-template #elseBlock33>

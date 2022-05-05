@@ -9,6 +9,7 @@ export interface Contrato{
     nombre:    string;
     direccion: string;
     tarifa:    string;
+    giro:      string;
     adeuda:    number;
     region:    number;
 }

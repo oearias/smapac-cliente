@@ -19,6 +19,7 @@ export class ContratoService {
   }
 
   getContrato( id:number ){
+    console.log(id);
     return this.http.get<Contrato>(this.URL_API+'contratos/'+id);
   }
 

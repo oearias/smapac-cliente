@@ -43,39 +43,43 @@ export class CardPagoComponent implements OnInit {
       this.direccionP   = params.direccion;
       this.coloniaP     = params.colonia;
       this.adeudaP      = params.adeuda;
+      this.monto      = params.adeuda;
       this.medidorP     = params.medidor;
       this.giroP        = params.giro;
       this.estatusP     = params.estatus;
       this.fechaVencP   = params.fechaVencimiento;
       this.fechaVencP   = this.fechaVencP.substring(8,10)+
                           '-'+this.fechaVencP.substring(5,7)+
-                          '-'+this.fechaVencP.substring(0,4)
+                          '-'+this.fechaVencP.substring(0,4);
+
+      this.monto = params.adeuda.replace('$','');
 
     });
 
-    this.getContrato(this.contratoP);
+    this.referencia = this.generateReferencia(this.contratoP);
+    //this.getContrato(this.contratoP);
   }
 
-  getContrato(contrato: number){
+  /*getContrato(contrato: number){
+
+    console.log("entra");
 
     this.contratoService.getContrato(contrato).subscribe( res => {
 
       this.monto = res.adeuda;
-      this.contrato = res;
-      this.referencia = this.generateReferencia(this.contrato?.contrato);
+      //this.contrato = res;
+      //this.referencia = this.generateReferencia(contrato);
 
     });
-  }
+  }*/
 
   generateReferencia(contrato : number){
 
     let fecha = new Date();
 
     let y = String(fecha.getFullYear());
-    //let m = String(fecha.getMonth());
     let m = ("0" + (fecha.getMonth() + 1)).slice(-2)
     let d = String(fecha.getDate());
-    //let h = String(fecha.getHours());
     let h = ("0" + (fecha.getHours())).slice(-2)
     let mm = ("0" + (fecha.getMinutes())).slice(-2)
     let s = ("0" + (fecha.getSeconds())).slice(-2)

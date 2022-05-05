@@ -180,7 +180,6 @@ export class ValidaContratoComponent implements OnInit {
     this.contratoService.getPeriodo().subscribe(res => {
       this.periodo = res;
 
-      console.log(res);
     });
   }
 
